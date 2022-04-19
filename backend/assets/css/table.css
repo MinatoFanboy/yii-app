@@ -1,0 +1,42 @@
+table {
+    border-collapse: collapse;
+    caption-side: top;
+    text-transform: capitalize;
+}
+td, th {
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.table-container {
+    position: relative;
+    max-height:  300px;
+    width: 100%;
+    overflow: scroll;
+}
+
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #f9f9f9;
+}
+
+thead th:first-child {
+    left: 0;
+    z-index: 3;
+}
+
+tbody {
+    overflow: scroll;
+    height: 100%;
+}
+
+tr > :first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    background: #f9f9f9;
+    left: 0;
+}

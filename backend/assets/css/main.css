@@ -1,0 +1,43 @@
+ul.dropdown-menu.list-inline {
+    background-color: #337ab7;
+    color: white;
+    padding: 0;
+}
+
+.dropdown-menu > li > a {
+    color: white;
+    padding: 7px;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    text-decoration: none;
+    background-color: #204d74;
+    color: white;
+}
+
+.btn-group.dropup, .btn.btn-primary.dropdown-toggle{
+    text-align: inherit
+}
+
+.dropdown-menu {
+     min-width: auto;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 34px;
+}
+
+.select2-container .select2-selection--single {
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 0;
+    right: 0;
+    transform: translateY(16%);
+}
+
+#content-padding {
+    padding: 10px 10px 0 10px;
+}
