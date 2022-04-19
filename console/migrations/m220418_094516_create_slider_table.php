@@ -10,7 +10,8 @@ class m220418_094516_create_slider_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(100),
             'content' => $this->text(),
-            'link' => $this->text(),
+            'link' => $this->string(200),
+            'representation' => $this->string(200),
         ]);
     }
 

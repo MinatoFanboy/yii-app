@@ -10,6 +10,7 @@ class m220418_094250_create_keyword_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(50),
             'slug' => $this->string(50),
+            'active' => $this->tinyInt(),
         ]);
     }
 

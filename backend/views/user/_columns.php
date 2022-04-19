@@ -115,7 +115,7 @@ return [
         'value' => function($model) {
             /** @var $model User */
             return $model->id != 1 ? Html::a('<i class="fas fa-trash-restore"></i>','#', ['class' => 'btn-delete text-danger',
-                'data-value'=> $model->id, 'data-url' => 'user/delete-user','title' => 'Xóa']) : '';
+                'data-value'=> $model->id, 'data-url' => 'user/delete','title' => 'Xóa']) : '';
         },
         'format' => 'raw',
         'headerOptions' => ['width' => '1%', 'class' => 'text-center text-primary'],

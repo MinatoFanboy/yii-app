@@ -72,7 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function duplicateAttribute($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = User::find()->andFilterWhere(["{$attribute}" => $this->$attribute])
+            $user = self::find()->andFilterWhere(["{$attribute}" => $this->$attribute])
                 ->andFilterWhere(['in', 'status', [self::STATUS_ACTIVE, self::STATUS_INACTIVE]]);
             if(!$this->isNewRecord){
                 $user->andFilterWhere(['<>', 'id', $this->id]);
