@@ -11,6 +11,17 @@ return [
         'width' => '1%',
     ],
     [
+        'header'=>'Ảnh đại diện',
+        'headerOptions' => ['class' => 'text-primary'],
+        'value' => function($model) {
+            return '<a class="example-image-link" href="../images/slider/'.$model->representation.'" data-lightbox="example-'.$model->id.'">
+                        <img class="example-image" src="../images/slider/'.$model->representation.'" alt="image-1" width="100px" />
+                    </a>';
+        },
+        'format' => 'raw',
+        'width' => '1%',
+    ],
+    [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'title',
     ],

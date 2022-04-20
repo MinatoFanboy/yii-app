@@ -1,4 +1,5 @@
 <?php
+use yii\web\View;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
@@ -44,3 +45,8 @@ CrudAsset::register($this);
         ])?>
     </div>
 </div>
+
+<?php $this->registerCssFile(Yii::$app->request->baseUrl.'/../backend/assets/plugins/lightbox2/dist/css/lightbox.min.css'); ?>
+
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/../backend/assets/plugins/lightbox2/dist/js/lightbox.min.js', 
+    ['depends' => ['backend\assets\AppAsset'], 'position' => View::POS_END]); ?>

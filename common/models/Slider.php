@@ -80,7 +80,7 @@ class Slider extends \yii\db\ActiveRecord
                         $file->saveAs($path . $link);
                     }
                     if (!$this->representation) {
-                        $this->updateAttributes(['representation' => $this->link]);
+                        $this->updateAttributes(['representation' => $link]);
                     }
                 }
             }

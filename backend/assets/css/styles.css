@@ -518,3 +518,37 @@
 .dropdown-menu.dropdown-menu-lg.dropdown-menu-right.show>.dropdown-item.dropdown-footer {
     font-size: 11px;
 }
+
+.picture-preview {
+    position: relative;
+}
+
+.picture-preview-activity{
+    display: none;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    transition: all 0.5s ease;
+}
+
+.picture-preview:hover {
+    opacity: 0.5;
+}
+
+.picture-preview:hover .picture-preview-activity {
+    bottom: 20px;
+    display: unset;
+}
+
+.picture-preview-activity > a {
+    padding: 0 10px;
+}
+
+.picture-preview-activity > a:hover {
+    color: black!important;
+}

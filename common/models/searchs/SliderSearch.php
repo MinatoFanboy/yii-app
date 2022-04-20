@@ -13,7 +13,7 @@ class SliderSearch extends Slider
     {
         return [
             [['id'], 'integer'],
-            [['title', 'content', 'link'], 'safe'],
+            [['title', 'content', 'link', 'representation'], 'safe'],
         ];
     }
 
