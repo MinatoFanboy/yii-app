@@ -76,7 +76,7 @@ class Slider extends \yii\db\ActiveRecord
                 if (!$picture_slider->save()) {
                     throw new HttpException(500, Html::errorSummary($picture_slider));
                 } else {
-                    if (FileHelper::createDirectory($path, $mode = 0775, $recursive = true)) {
+                    if (FileHelper::createDirectory($path . date('Y/m/d') . '/', $mode = 0775, $recursive = true)) {
                         $file->saveAs($path . $link);
                     }
                     if (!$this->representation) {

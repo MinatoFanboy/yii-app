@@ -10,7 +10,8 @@ class m220418_094416_create_trademark_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(50),
             'slug' => $this->string(50),
-            'picture' => $this->text(),
+            'file' => $this->text(),
+            'active' => $this->tinyInteger()->defaultValue(1),
         ]);
     }
 
