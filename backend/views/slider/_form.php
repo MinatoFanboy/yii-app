@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Slider */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $pricture_sliders yii\widgets\PictureSlider[] */
+/* @var $pricture_sliders common\models\SliderImage[] */
 ?>
 
 <div class="slider-form">
@@ -23,18 +23,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'pictures[]')->fileInput(['accept' => 'image/*', 'multiple' => 'multiple']) ?>
+    <?= $form->field($model, 'images[]')->fileInput(['accept' => 'image/*', 'multiple' => 'multiple']) ?>
 
-    <?php if ($model->isNewRecord):  ?>
+    <?php if (!$model->isNewRecord):  ?>
         <div class="row">
-            <?php foreach ($pricture_sliders as $picture_slider): ?>
+            <?php foreach ($slider_images as $slider_image): ?>
                 <div class="col-md-2 picture-preview text-center">
-                    <img src="../images/slider/<?= $picture_slider->file ?>" width="150px">
+                    <img src="../images/slider/<?= $slider_image->file ?>" width="150px">
                     <div class="picture-preview-activity">
-                        <a class="example-image-link text-muted" href="../images/slider/<?= $picture_slider->file ?>" data-lightbox="example-set">
+                        <a class="example-image-link text-muted" href="../images/slider/<?= $slider_image->file ?>" data-lightbox="example-set">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="#" class="delete-picture-preview text-muted" data-value="<?= $picture_slider->id ?>">
+                        <a href="#" class="delete-picture-preview text-muted" data-value="<?= $slider_image->id ?>">
                             <i class="fas fa-trash-restore"></i>
                         </a>
                     </div>

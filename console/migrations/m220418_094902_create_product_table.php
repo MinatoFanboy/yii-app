@@ -20,6 +20,7 @@ class m220418_094902_create_product_table extends Migration
             'sellest' => $this->tinyInteger(),
             'trademark_id' => $this->integer(),
             'trademark' => $this->string(100),
+            'active' => $this->tinyInteger()->defaultValue(1),
             'user_created_id' => $this->integer(),
             'user_created' => $this->string(100),
             'user_updated_id' => $this->integer(),

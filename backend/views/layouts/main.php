@@ -224,7 +224,7 @@ AppAsset::register($this);
                     </li>
                     <li class="nav-header">BÁN HÀNG</li>
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['/product-type/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['/product/index']) ?>" class="nav-link">
                             <i class="nav-icon fas fa-box-open"></i>
                             <p>
                                 Sản phẩm

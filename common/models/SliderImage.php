@@ -11,11 +11,11 @@ use Yii;
  *
  * @property Slider $slider
  */
-class PictureSlider extends \yii\db\ActiveRecord
+class SliderImage extends \yii\db\ActiveRecord
 {
     public static function tableName()
     {
-        return 'picture_slider';
+        return 'slider_image';
     }
 
     public function rules()

@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'picture')->fileInput(['accept' => 'image/*']) ?>
+    <?= $form->field($model, 'image')->fileInput(['accept' => 'image/*']) ?>
 
 	<?php if (!$model->isNewRecord):  ?>
 		<div id="img-representation">

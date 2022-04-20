@@ -15,7 +15,7 @@ use yii\helpers\FileHelper;
  */
 class Trademark extends \yii\db\ActiveRecord
 {
-    public $picture;
+    public $image;
 
     public static function tableName()
     {
@@ -28,7 +28,7 @@ class Trademark extends \yii\db\ActiveRecord
             [['file'], 'string'],
             [['name', 'slug'], 'string', 'max' => 50],
             [['active'], 'integer'],
-            [['picture'], 'safe'],
+            [['image'], 'safe'],
         ];
     }
 
@@ -39,6 +39,7 @@ class Trademark extends \yii\db\ActiveRecord
             'name' => 'Tên',
             'slug' => 'Slug',
             'file' => 'Ảnh đại diện',
+            'image' => 'Ảnh đại diện',
             'active' => 'Active',
         ];
     }
@@ -47,7 +48,7 @@ class Trademark extends \yii\db\ActiveRecord
     {
         $this->slug = myAPI::createCode($this->name);
         
-        $file = UploadedFile::getInstance($this, 'picture');
+        $file = UploadedFile::getInstance($this, 'image');
         if (is_null($file)) {
             if ($insert) {
                 $this->file = 'no-image.jpeg';
@@ -66,7 +67,7 @@ class Trademark extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-        $file = UploadedFile::getInstance($this, 'picture');
+        $file = UploadedFile::getInstance($this, 'image');
         if (!is_null($file)) {
             $path = dirname(dirname(__DIR__)).'/images/trademark/';
             if (FileHelper::createDirectory($path . date('Y/m/d') . '/', $mode = 0775, $recursive = true)) {

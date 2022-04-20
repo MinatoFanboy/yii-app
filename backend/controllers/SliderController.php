@@ -3,15 +3,13 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\helpers\Html;
-use \yii\web\Response;
 use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Slider;
 use yii\web\HttpException;
 use yii\filters\VerbFilter;
+use common\models\SliderImage;
 use yii\filters\AccessControl;
-use common\models\PictureSlider;
 use yii\web\NotFoundHttpException;
 use common\models\searchs\SliderSearch;
 
@@ -79,14 +77,14 @@ class SliderController extends Controller
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $pricture_sliders = $model->pictureSliders;       
+        $slider_images = $model->sliderImages;  
 
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'pricture_sliders' => $pricture_sliders,
+                'slider_images' => $slider_images,
             ]);
         }
     }
@@ -105,14 +103,14 @@ class SliderController extends Controller
     {
         if (Yii::$app->request->isAjax) {
             if (isset($_POST['id'])) {
-                $picture_slider = PictureSlider::findOne($_POST['id']);
-                if (is_null($picture_slider)) {
+                $slider_image = SliderImage::findOne($_POST['id']);
+                if (is_null($slider_image)) {
                     throw new HttpException(500, 'Ảnh không tồn tại');
                 }
-                if ($picture_slider->delete()) {
-                    if ($picture_slider->slider->representation == $picture_slider->file) {
-                        $picture_slider = PictureSlider::findOne(['slider_id' => $picture_slider->slider_id]);
-                        $picture_slider->slider->updateAttributes(['representation' => $picture_slider->file]);
+                if ($slider_image->delete()) {
+                    if ($slider_image->slider->representation == $slider_image->file) {
+                        $slider_image = SliderImage::findOne(['slider_id' => $slider_image->slider_id]);
+                        $slider_image->slider->updateAttributes(['representation' => $slider_image->file]);
                     }
                 }
             } else {

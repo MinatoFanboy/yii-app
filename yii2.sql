@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2022 at 10:10 AM
+-- Generation Time: Apr 20, 2022 at 12:13 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.26
 
@@ -55,7 +55,15 @@ INSERT INTO `activity` (`id`, `name`, `controller_action`, `group`) VALUES
 (14, 'Xóa chức năng', 'Chức năng', 'Chức năng'),
 (15, 'Truy cập phân quyền', 'Permission;Index', 'Phân quyền'),
 (16, 'Xem thông tin phân quyền', 'Permission;Load', 'Phân quyền'),
-(17, 'Lưu phân quyền', 'Permission;Save', 'Phân quyền');
+(17, 'Lưu phân quyền', 'Permission;Save', 'Phân quyền'),
+(18, 'Danh sách loại sản phẩm', 'ProductType;Index', 'Loại sản phẩm'),
+(19, 'Thêm loại sản phẩm', 'ProductType;Create', 'Loại sản phẩm'),
+(20, 'Cập nhật loại sản phẩm', 'ProductType;Update', 'Loại sản phẩm'),
+(21, 'Xóa loại sản phẩm', 'ProductType;Delete', 'Loại sản phẩm'),
+(22, 'Danh sách từ khóa', 'Keyword;Index', 'Từ khóa'),
+(23, 'Thêm từ khóa', 'Keyword;Create', 'Từ khóa'),
+(24, 'Cập nhật từ khóa', 'Keyword;Update', 'Từ khóa'),
+(25, 'Xóa từ khóa', 'Keyword;Delete', 'Từ khóa');
 
 -- --------------------------------------------------------
 
@@ -66,7 +74,8 @@ INSERT INTO `activity` (`id`, `name`, `controller_action`, `group`) VALUES
 CREATE TABLE `keyword` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -97,9 +106,10 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m220418_094250_create_keyword_table', 1650343342),
 ('m220418_094416_create_trademark_table', 1650343342),
 ('m220418_094516_create_slider_table', 1650343342),
-('m220418_094623_create_picture_slider_table', 1650343342),
+('m220418_094623_create_slider_image_table', 1650343342),
 ('m220418_094902_create_product_table', 1650343342),
-('m220418_095842_create_product_keywork_table', 1650343342);
+('m220418_095842_create_product_keywork_table', 1650343342),
+('m220420_094549_create_product_image_table', 1650448237);
 
 -- --------------------------------------------------------
 
@@ -130,18 +140,6 @@ CREATE TABLE `permission` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `picture_slider`
---
-
-CREATE TABLE `picture_slider` (
-  `id` int(11) NOT NULL,
-  `file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slider_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `product`
 --
 
@@ -159,10 +157,23 @@ CREATE TABLE `product` (
   `sellest` smallint(6) DEFAULT NULL,
   `trademark_id` int(11) DEFAULT NULL,
   `trademark` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT 1,
   `user_created_id` int(11) DEFAULT NULL,
   `user_created` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_updated_id` int(11) DEFAULT NULL,
   `user_updated` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_image`
+--
+
+CREATE TABLE `product_image` (
+  `id` int(11) NOT NULL,
+  `file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -186,8 +197,20 @@ CREATE TABLE `product_keywork` (
 CREATE TABLE `product_type` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` smallint(6) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`id`, `name`, `slug`, `active`) VALUES
+(1, 'Áo phông', 'ao-phong', 1),
+(2, 'Áo sơ mi', 'ao-so-mi', 1),
+(3, 'Đồng hồ', 'dong-ho', 1),
+(4, 'Thắt lưng', 'that-lung', 1),
+(5, 'Giày', 'giay', 1);
 
 -- --------------------------------------------------------
 
@@ -220,8 +243,37 @@ CREATE TABLE `slider` (
   `id` int(11) NOT NULL,
   `title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `representation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `title`, `content`, `link`, `representation`) VALUES
+(1, 'Giảm giá mùa hè', 'Giảm giá mùa hè', '#', '2022/04/19/0_giam-gia-mua-he.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider_image`
+--
+
+CREATE TABLE `slider_image` (
+  `id` int(11) NOT NULL,
+  `file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slider_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `slider_image`
+--
+
+INSERT INTO `slider_image` (`id`, `file`, `slider_id`) VALUES
+(1, '2022/04/19/0_giam-gia-mua-he.jpg', 1),
+(2, '2022/04/19/1_giam-gia-mua-he.jpg', 1),
+(3, '2022/04/19/2_giam-gia-mua-he.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -233,8 +285,18 @@ CREATE TABLE `trademark` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `slug` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `picture` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `file` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `trademark`
+--
+
+INSERT INTO `trademark` (`id`, `name`, `slug`, `file`, `active`) VALUES
+(1, 'Gucci', 'gucci', '2022/04/20/gucci.png', 1),
+(2, 'Chanel', 'chanel', '2022/04/20/chanel.png', 1),
+(3, 'Adidas', 'adidas', '2022/04/20/adidas.png', 1);
 
 -- --------------------------------------------------------
 
@@ -332,17 +394,17 @@ ALTER TABLE `permission`
   ADD KEY `permission_role_id_fk` (`role_id`);
 
 --
--- Indexes for table `picture_slider`
---
-ALTER TABLE `picture_slider`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `picture_slider_slider_id_fk` (`slider_id`);
-
---
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_image`
+--
+ALTER TABLE `product_image`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_image_product_id_fk` (`product_id`);
 
 --
 -- Indexes for table `product_keywork`
@@ -369,6 +431,13 @@ ALTER TABLE `role`
 --
 ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `slider_image`
+--
+ALTER TABLE `slider_image`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `picture_slider_slider_id_fk` (`slider_id`);
 
 --
 -- Indexes for table `trademark`
@@ -401,7 +470,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `keyword`
@@ -422,15 +491,15 @@ ALTER TABLE `permission`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `picture_slider`
---
-ALTER TABLE `picture_slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_image`
+--
+ALTER TABLE `product_image`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -443,7 +512,7 @@ ALTER TABLE `product_keywork`
 -- AUTO_INCREMENT for table `product_type`
 --
 ALTER TABLE `product_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -455,13 +524,19 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `slider_image`
+--
+ALTER TABLE `slider_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `trademark`
 --
 ALTER TABLE `trademark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -493,10 +568,10 @@ ALTER TABLE `permission`
   ADD CONSTRAINT `permission_role_id_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `picture_slider`
+-- Constraints for table `product_image`
 --
-ALTER TABLE `picture_slider`
-  ADD CONSTRAINT `picture_slider_slider_id_fk` FOREIGN KEY (`slider_id`) REFERENCES `slider` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `product_image`
+  ADD CONSTRAINT `product_image_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product_keywork`
@@ -504,6 +579,12 @@ ALTER TABLE `picture_slider`
 ALTER TABLE `product_keywork`
   ADD CONSTRAINT `product_keywork_keyword_id_fk` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `product_keywork_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `slider_image`
+--
+ALTER TABLE `slider_image`
+  ADD CONSTRAINT `picture_slider_slider_id_fk` FOREIGN KEY (`slider_id`) REFERENCES `slider` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user`

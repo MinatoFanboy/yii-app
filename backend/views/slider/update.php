@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Slider */
-/* @var $pricture_sliders common\models\PictureSlider[] */
+/* @var $slider_images common\models\SliderImage[] */
 
 $this->title = 'Cập nhật slider: '.$model->title;
 ?>
@@ -13,7 +13,7 @@ $this->title = 'Cập nhật slider: '.$model->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'pricture_sliders' => $pricture_sliders,
+        'slider_images' => $slider_images,
     ]) ?>
 
 </div>

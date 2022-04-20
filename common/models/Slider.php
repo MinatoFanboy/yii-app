@@ -16,11 +16,11 @@ use yii\helpers\FileHelper;
  * @property string|null $link
  * @property string|null $representation
  *
- * @property PictureSlider[] $pictureSliders
+ * @property SliderImage[] $sliderImages
  */
 class Slider extends \yii\db\ActiveRecord
 {
-    public $pictures;
+    public $images;
 
     public static function tableName()
     {
@@ -33,7 +33,7 @@ class Slider extends \yii\db\ActiveRecord
             [['title'], 'required', 'message' => '{attribute} không được để trống'],
             [['content', 'link', 'representation'], 'string'],
             [['title'], 'string', 'max' => 100],
-            [['pictures'], 'safe'],
+            [['images'], 'safe'],
         ];
     }
 
@@ -44,13 +44,13 @@ class Slider extends \yii\db\ActiveRecord
             'title' => 'Tiêu đề',
             'content' => 'Nội dung',
             'link' => 'Link',
-            'pictures' => 'Ảnh slider',
+            'images' => 'Ảnh slider',
         ];
     }
 
-    public function getPictureSliders()
+    public function getSliderImages()
     {
-        return $this->hasMany(PictureSlider::className(), ['slider_id' => 'id']);
+        return $this->hasMany(SliderImage::className(), ['slider_id' => 'id']);
     }
 
     public function beforeDelete()
@@ -64,17 +64,17 @@ class Slider extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-        $files = UploadedFile::getInstances($this, 'pictures');
+        $files = UploadedFile::getInstances($this, 'images');
         if (!empty($files)) {
             foreach ($files as $key => $file) {
                 $path = dirname(dirname(__DIR__)) . '/images/slider/';
                 $link = date('Y/m/d') . '/' . $key . '_' . myAPI::createCode($this->title) . myAPI::get_extension_image($file->type);
 
-                $picture_slider = new PictureSlider();
-                $picture_slider->file = $link;
-                $picture_slider->slider_id = $this->id;
-                if (!$picture_slider->save()) {
-                    throw new HttpException(500, Html::errorSummary($picture_slider));
+                $slider_image = new SliderImage();
+                $slider_image->file = $link;
+                $slider_image->slider_id = $this->id;
+                if (!$slider_image->save()) {
+                    throw new HttpException(500, Html::errorSummary($slider_image));
                 } else {
                     if (FileHelper::createDirectory($path . date('Y/m/d') . '/', $mode = 0775, $recursive = true)) {
                         $file->saveAs($path . $link);
