@@ -25,6 +25,10 @@ php composer require --prefer-dist yiisoft/yii2-jui
 ```
 php composer require phpoffice/phpspreadsheet --prefer-source
 ```
+`CKeditor`: 
+```
+composer require 2amigos/yii2-ckeditor-widget:^2.1
+```
 `Library & Plugin:`
 * fontawesome
 * jquery-migrate.js

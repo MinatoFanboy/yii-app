@@ -24,7 +24,8 @@
         "2amigos/yii2-date-time-picker-widget": "~1.0",
         "ext-json": "*",
         "twilio/sdk": "^6.32",
-        "rebib/igo-php": "^0.2.0"
+        "rebib/igo-php": "^0.2.0",
+        "2amigos/yii2-ckeditor-widget": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

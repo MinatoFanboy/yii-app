@@ -9,6 +9,9 @@ use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Product;
 use yii\filters\VerbFilter;
+use common\models\Trademark;
+use yii\helpers\ArrayHelper;
+use common\models\ProductType;
 use yii\web\NotFoundHttpException;
 use common\models\searchs\ProductSearch;
 
@@ -44,12 +47,15 @@ class ProductController extends Controller
     {
         $request = Yii::$app->request;
         $model = new Product();  
+        $trademarks = ArrayHelper::map(Trademark::findAll(['active' => myAPI::ACTIVE]), 'id', 'name');
+        $product_types = ArrayHelper::map(ProductType::findAll(['active' => myAPI::ACTIVE]), 'id', 'name');
 
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'trademarks' => $trademarks
             ]);
         }
     }

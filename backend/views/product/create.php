@@ -10,5 +10,6 @@ $this->title = "Thêm sản phẩm"
 <div class="product-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'trademarks' => $trademarks
     ]) ?>
 </div>

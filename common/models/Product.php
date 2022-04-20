@@ -29,6 +29,10 @@ use Yii;
  */
 class Product extends myActiveRecord
 {
+    public $images;
+    public $product_types;
+    public $product_keyword;
+
     public static function tableName()
     {
         return 'product';
@@ -38,7 +42,7 @@ class Product extends myActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['cost', 'price', 'price_sale'], 'safe'],
+            [['cost', 'price', 'price_sale', 'images', 'product_types', 'product_keyword'], 'safe'],
             [['exist_day'], 'safe'],
             [['features', 'newest', 'sellest', 'trademark_id', 'active', 'user_created_id', 'user_updated_id'], 'integer'],
             [['name', 'trademark', 'user_created', 'user_updated'], 'string', 'max' => 100],
@@ -67,6 +71,9 @@ class Product extends myActiveRecord
             'user_created' => 'User Created',
             'user_updated_id' => 'User Updated ID',
             'user_updated' => 'User Updated',
+            'images' => 'Ảnh sản phẩm',
+            'product_types' => 'Loại sản phẩm',
+            'product_keyword' => 'Từ khóa sản phẩm',
         ];
     }
 

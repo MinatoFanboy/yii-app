@@ -11,11 +11,11 @@ use yii\db\ActiveRecord;
  * @property string $code
  * @property string $content
  */
-class CauHinh extends myActiveRecord
+class Configure extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{%cau_hinh}}';
+        return '{{%configure}}';
     }
 
     public function rules()
