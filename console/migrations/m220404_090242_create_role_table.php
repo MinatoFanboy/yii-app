@@ -14,7 +14,7 @@ class m220404_090242_create_role_table extends Migration
         $this->createTable('{{%role}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50),
-            'status' => $this->smallInteger()->defaultValue(1),
+            'status' => $this->tinyInteger()->defaultValue(1),
         ], $tableOptions);
     }
 

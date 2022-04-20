@@ -74,7 +74,7 @@ class KeywordController extends Controller
                                 Html::button('<i class="fas fa-save"></i> Lưu lại',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
             }else if($model->load($request->post())){
-                $oldModel = Keyword::findOne(['name' => $model->name, 'status' => myAPI::IN_ACTIVE]);
+                $oldModel = Keyword::findOne(['name' => $model->name, 'active' => myAPI::IN_ACTIVE]);
                 if (!is_null($oldModel)) {
                     $oldModel->updateAttributes(['active' => myAPI::ACTIVE]);
                     return [

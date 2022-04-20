@@ -10,7 +10,7 @@ class m220418_093952_create_product_type_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(50),
             'slug' => $this->string(50),
-            'active' => $this->integer(),
+            'active' => $this->tinyInteger()->defaultValue(1),
         ]);
     }
 

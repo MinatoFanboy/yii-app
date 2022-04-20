@@ -75,7 +75,7 @@ class ProductTypeController extends Controller
         
                 ];         
             }else if($model->load($request->post())){
-                $oldModel = ProductType::findOne(['name' => $model->name, 'status' => myAPI::IN_ACTIVE]);
+                $oldModel = ProductType::findOne(['name' => $model->name, 'active' => myAPI::IN_ACTIVE]);
                 if (!is_null($oldModel)) {
                     $oldModel->updateAttributes(['active' => myAPI::ACTIVE]);
                     return [

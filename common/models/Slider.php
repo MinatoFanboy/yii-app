@@ -3,8 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 use common\models\myAPI;
 use yii\web\UploadedFile;
+use yii\web\HttpException;
 use yii\helpers\FileHelper;
 
 /**
@@ -12,7 +14,7 @@ use yii\helpers\FileHelper;
  * @property string|null $title
  * @property string|null $content
  * @property string|null $link
- * @property string|null $presentation
+ * @property string|null $representation
  *
  * @property PictureSlider[] $pictureSliders
  */
@@ -28,7 +30,8 @@ class Slider extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'link'], 'string'],
+            [['title'], 'required', 'message' => '{attribute} không được để trống'],
+            [['content', 'link', 'representation'], 'string'],
             [['title'], 'string', 'max' => 100],
             [['pictures'], 'safe'],
         ];
@@ -64,11 +67,21 @@ class Slider extends \yii\db\ActiveRecord
         $files = UploadedFile::getInstances($this, 'pictures');
         if (!empty($files)) {
             foreach ($files as $key => $file) {
-                $path = dirname(dirname(__DIR__)) . '/images/slider/' . date('Y/m/d');
-                $link = $path . $path . '/' . $key . '_' . myAPI::createCode($this->title) . myAPI::get_extension_image($file->type);
+                $path = dirname(dirname(__DIR__)) . '/images/slider/';
+                $link = date('Y/m/d') . '/' . $key . '_' . myAPI::createCode($this->title) . myAPI::get_extension_image($file->type);
 
-                if (FileHelper::createDirectory($path, $mode = 0775, $recursive = true)) {
-                    $file->saveAs($path . '/' . $key . '_' . myAPI::createCode($this->title) . myAPI::get_extension_image($file->type));
+                $picture_slider = new PictureSlider();
+                $picture_slider->file = $link;
+                $picture_slider->slider_id = $this->id;
+                if (!$picture_slider->save()) {
+                    throw new HttpException(500, Html::errorSummary($picture_slider));
+                } else {
+                    if (FileHelper::createDirectory($path, $mode = 0775, $recursive = true)) {
+                        $file->saveAs($path . $link);
+                    }
+                    if (!$this->representation) {
+                        $this->updateAttributes(['representation' => $this->link]);
+                    }
                 }
             }
         }
