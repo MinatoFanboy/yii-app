@@ -4,6 +4,7 @@ use common\models\myAPI;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 use dosamigos\ckeditor\CKEditor;
+use dosamigos\selectize\SelectizeTextInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -84,6 +85,20 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'trademark_id')->dropDownList($trademarks, ['prompt' => '- Chọn -']) ?>
 
+    <?= $form->field($model, 'product_types')->checkboxList($product_types) ?>
+
+    <?= $form->field($model, 'product_keywords')->widget(SelectizeTextInput::className(), [
+        'loadUrl' => ['keyword/list'],
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'plugins' => ['remove_button'],
+            'valueField' => 'name',
+            'labelField' => 'name',
+            'searchField' => ['name'],
+            'create' => true,
+        ],
+    ])->hint('Sử dụng dấy phảy để ngăn cách') ?>
+
     <?= $form->field($model, 'images[]')->fileInput(['accept' => 'image/*', 'multiple' => 'multiple']) ?>
 
     <?php if (!$model->isNewRecord):  ?>
@@ -105,7 +120,8 @@ use dosamigos\ckeditor\CKEditor;
     <?php endif; ?>
   
 	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
+        <hr />
+	  	<div class="form-group text-right">
 	        <?= Html::submitButton($model->isNewRecord ? '<i class="fas fa-save"></i> Thêm mới' : '<i class="fas fa-save"></i> Cập nhật', 
                 ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	    </div>

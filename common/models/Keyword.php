@@ -10,7 +10,7 @@ use Yii;
  * @property string|null $slug
  * @property int|null $active
  *
- * @property ProductKeywork[] $productKeyworks
+ * @property ProductKeyword[] $productKeywords
  */
 class Keyword extends \yii\db\ActiveRecord
 {
@@ -54,9 +54,9 @@ class Keyword extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductKeyworks()
+    public function getProductKeywords()
     {
-        return $this->hasMany(ProductKeywork::className(), ['keyword_id' => 'id']);
+        return $this->hasMany(ProductKeyword::className(), ['keyword_id' => 'id']);
     }
 
     public function beforeSave($insert)

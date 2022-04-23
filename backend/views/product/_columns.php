@@ -1,98 +1,98 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 return [
     [
-        'class' => 'kartik\grid\CheckboxColumn',
-        'width' => '20px',
+        'header' => 'STT',
+        'headerOptions' => ['class' => 'text-primary'],
+        'contentOptions' => ['class' => 'td-user'],
+        'class' => 'kartik\grid\SerialColumn',
+        'width' => '1%',
     ],
     [
-        'class' => 'kartik\grid\SerialColumn',
-        'width' => '30px',
+        'header'=>'Ảnh đại diện',
+        'headerOptions' => ['class' => 'text-primary'],
+        'value' => function($model) {
+            return '<a class="example-image-link" href="../images/product/'.$model->representation.'" data-lightbox="example-'.$model->id.'">
+                        <img class="example-image" src="../images/product/'.$model->representation.'" alt="Ảnh đại diện" width="100px" />
+                    </a>';
+        },
+        'format' => 'raw',
+        'width' => '1%',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'short_description',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'description',
+        'attribute'=>'trademark_name',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'cost',
+        'contentOptions' => ['class' => 'text-right'],
+        'value' => function($model) {
+            return number_format($model->cost, 0, ',', '.') . ' VN';
+        }
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'price',
+        'contentOptions' => ['class' => 'text-right'],
+        'value' => function($model) {
+            return number_format($model->price, 0, ',', '.') . ' VN';
+        }
     ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'price_sale',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'exist_day',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'features',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'newest',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'sellest',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'trademark_id',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'trademark',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'user_created_id',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'user_created',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'user_updated_id',
-    // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'user_updated',
-    // ],
     [
-        'class' => 'kartik\grid\ActionColumn',
-        'dropdown' => false,
-        'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { 
-                return Url::to([$action,'id'=>$key]);
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'features',
+        'contentOptions' => ['class' => 'text-center'],
+        'width' => '1%',
+        'value' => function($model) {
+            return $model->features == 1 ? '<i class="far fa-check-square"></i>' : '';
         },
-        'viewOptions'=>['role'=>'modal-remote','title'=>'View','data-toggle'=>'tooltip'],
-        'updateOptions'=>['role'=>'modal-remote','title'=>'Update', 'data-toggle'=>'tooltip'],
-        'deleteOptions'=>['role'=>'modal-remote','title'=>'Delete', 
-                          'data-confirm'=>false, 'data-method'=>false,// for overide yii data api
-                          'data-request-method'=>'post',
-                          'data-toggle'=>'tooltip',
-                          'data-confirm-title'=>'Are you sure?',
-                          'data-confirm-message'=>'Are you sure want to delete this item'], 
+        'format' => 'raw',
     ],
-
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'newest',
+        'contentOptions' => ['class' => 'text-center'],
+        'width' => '1%',
+        'value' => function($model) {
+            return $model->newest == 1 ? '<i class="far fa-check-square"></i>' : '';
+        },
+        'format' => 'raw',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'sellest',
+        'contentOptions' => ['class' => 'text-center'],
+        'width' => '1%',
+        'value' => function($model) {
+            return $model->sellest == 1 ? '<i class="far fa-check-square"></i>' : '';
+        },
+        'format' => 'raw',
+    ],
+    [
+        'header' => 'Sửa',
+        'value' => function($model) {
+            return Html::a('<i class="fas fa-edit"></i>', Url::toRoute(['product/update', 'id' => $model->id]),
+                ['title' => 'Cập nhật']);
+        },
+        'format' => 'raw',
+        'headerOptions' => ['width' => '1%', 'class' => 'text-center text-primary'],
+        'contentOptions' => ['class' => 'text-center']
+    ],
+    [
+        'header' => 'Xoá',
+        'value' => function($model) {
+            return Html::a('<i class="fas fa-trash-restore"></i>','#', ['class' => 'btn-delete text-danger',
+                'data-value'=> $model->id, 'data-url' => 'product/delete','title' => 'Xóa']);
+        },
+        'format' => 'raw',
+        'headerOptions' => ['width' => '1%', 'class' => 'text-center text-primary'],
+        'contentOptions' => ['class' => 'text-center']
+    ],
 ];   

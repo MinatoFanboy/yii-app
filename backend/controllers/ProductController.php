@@ -8,6 +8,7 @@ use \yii\web\Response;
 use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Product;
+use yii\helpers\VarDumper;
 use yii\filters\VerbFilter;
 use common\models\Trademark;
 use yii\helpers\ArrayHelper;
@@ -55,7 +56,8 @@ class ProductController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'trademarks' => $trademarks
+                'trademarks' => $trademarks,
+                'product_types' => $product_types,
             ]);
         }
     }
@@ -64,13 +66,31 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);     
+        $trademarks = ArrayHelper::map(Trademark::findAll(['active' => myAPI::ACTIVE]), 'id', 'name');
+        $product_types = ArrayHelper::map(ProductType::findAll(['active' => myAPI::ACTIVE]), 'id', 'name');   
+        $product_images = $model->productImages;  
+
+        $product_product_types = [];
+        foreach ($model->productProductTypes as $productProductType) {
+            $product_product_types[] = $productProductType->product_type_id.'';
+        }
+        $model->product_types = $product_product_types;
+
+        $keywords = [];
+        foreach ($model->productKeywords as $productKeyword) {
+            $keywords[] = $productKeyword->keyword->name;
+        }
+        $model->product_keywords = implode(',', $keywords);
 
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'trademarks' => $trademarks,
+                'product_types' => $product_types,
+                'product_images' => $product_images,
             ]);
         }
     }

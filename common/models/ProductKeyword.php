@@ -12,11 +12,11 @@ use Yii;
  * @property Keyword $keyword
  * @property Product $product
  */
-class ProductKeywork extends \yii\db\ActiveRecord
+class ProductKeyword extends \yii\db\ActiveRecord
 {
     public static function tableName()
     {
-        return 'product_keywork';
+        return 'product_keyword';
     }
 
     public function rules()

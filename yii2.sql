@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2022 at 12:13 PM
+-- Generation Time: Apr 23, 2022 at 09:33 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.26
 
@@ -78,6 +78,17 @@ CREATE TABLE `keyword` (
   `active` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `keyword`
+--
+
+INSERT INTO `keyword` (`id`, `name`, `slug`, `active`) VALUES
+(1, 'Dành cho nữ', 'danh-cho-nu', 1),
+(2, 'Dành cho nam', 'danh-cho-nam', 1),
+(3, 'Đồng hồ', 'dong-ho', 1),
+(4, 'Áo khoác', 'ao-khoac', 1),
+(5, 'Áo phông', 'ao-phong', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -108,8 +119,9 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m220418_094516_create_slider_table', 1650343342),
 ('m220418_094623_create_slider_image_table', 1650343342),
 ('m220418_094902_create_product_table', 1650343342),
-('m220418_095842_create_product_keywork_table', 1650343342),
-('m220420_094549_create_product_image_table', 1650448237);
+('m220418_095842_create_product_keyword_table', 1650343342),
+('m220420_094549_create_product_image_table', 1650448237),
+('m220421_020559_create_product_product_type_table', 1650507334);
 
 -- --------------------------------------------------------
 
@@ -148,21 +160,37 @@ CREATE TABLE `product` (
   `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `short_description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cost` decimal(20,3) DEFAULT NULL,
-  `price` decimal(20,3) DEFAULT NULL,
-  `price_sale` decimal(20,3) DEFAULT NULL,
+  `cost` decimal(20,3) DEFAULT 0.000,
+  `price` decimal(20,3) DEFAULT 0.000,
+  `price_sale` decimal(20,3) DEFAULT 0.000,
   `exist_day` datetime DEFAULT NULL,
-  `features` smallint(6) DEFAULT NULL,
-  `newest` smallint(6) DEFAULT NULL,
-  `sellest` smallint(6) DEFAULT NULL,
+  `features` smallint(6) DEFAULT 0,
+  `newest` smallint(6) DEFAULT 0,
+  `sellest` smallint(6) DEFAULT 0,
   `trademark_id` int(11) DEFAULT NULL,
-  `trademark` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trademark_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `representation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(4) DEFAULT 1,
   `user_created_id` int(11) DEFAULT NULL,
   `user_created` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_updated_id` int(11) DEFAULT NULL,
   `user_updated` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `short_description`, `description`, `cost`, `price`, `price_sale`, `exist_day`, `features`, `newest`, `sellest`, `trademark_id`, `trademark_name`, `representation`, `active`, `user_created_id`, `user_created`, `user_updated_id`, `user_updated`) VALUES
+(1, 'Áo phông cho nữ', 'Áo phông cho nữ', '<p>&Aacute;o ph&ocirc;ng cho nữ</p>\r\n', '120000.000', '150000.000', '140000.000', '2022-04-30 00:00:00', 1, 1, 0, 2, 'Chanel', '2022/04/21/0_ao-phong-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(2, 'Áo sơ mi cho nữ', 'Áo sơ mi cho nữ', '<p>&Aacute;o sơ mi cho nữ</p>\r\n', '200000.000', '230000.000', '220000.000', '2022-04-30 00:00:00', 0, 1, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(3, 'Áo sơ mi nam', 'Áo sơ mi nam', '<p>&Aacute;o sơ mi nam</p>\r\n', '150000.000', '180000.000', '170000.000', '2022-04-01 00:00:00', 0, 0, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-nam.jpg', 1, 1, 'admin', NULL, NULL),
+(4, 'Áo khoác nữ', 'Áo khoác nữ', '<p>&Aacute;o kh&oacute;a nữ</p>\r\n', '500000.000', '650000.000', '640000.000', '2022-10-01 00:00:00', 0, 0, 0, 2, 'Chanel', '2022/04/23/0_ao-khoac-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(5, 'Concept ngày hè cho nữ', 'Concept ngày hè cho nữ', '<p>Concept ng&agrave;y h&egrave; cho nữ</p>\r\n', '500000.000', '980000.000', '950000.000', '2022-05-15 00:00:00', 0, 0, 0, 1, 'Gucci', '2022/04/23/0_concept-ngay-he-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(6, 'Đồng hồ Omega', 'Đồng hồ Omega', '<p>Đồng hồ Omega</p>\r\n', '2500000.000', '3000000.000', '2999000.000', '2022-04-23 00:00:00', 1, 1, 0, NULL, NULL, '2022/04/23/0_dong-ho-omega.jpg', 1, 1, 'admin', NULL, NULL),
+(7, 'Áo khoác ngang hông nữ', 'Áo khoác ngang hông nữ', '<p>&Aacute;o kho&aacute;c ngang h&ocirc;ng nữ</p>\r\n', '600000.000', '800000.000', '750000.000', '2022-04-25 00:00:00', 1, 0, 1, 2, 'Chanel', '2022/04/23/0_ao-khoac-ngang-hong-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(8, 'Áo phông nữ', 'Áo phông nữ', '<p>&Aacute;o ph&ocirc;ng nữ</p>\r\n', '200000.000', '350000.000', '320000.000', '2022-04-15 00:00:00', 1, 1, 0, 1, 'Gucci', '2022/04/23/0_ao-phong-nu.jpg', 1, 1, 'admin', NULL, NULL),
+(9, 'Giày mới 2022', 'Giày mới 2022', '<p>Gi&agrave;y mới 2022</p>\r\n', '3500000.000', '4000000.000', '3900000.000', '2022-04-30 00:00:00', 1, 0, 0, 3, 'Adidas', '2022/04/23/0_giay-moi-2022.jpg', 1, 1, 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -176,17 +204,71 @@ CREATE TABLE `product_image` (
   `product_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`id`, `file`, `product_id`) VALUES
+(1, '2022/04/21/0_ao-phong-cho-nu.jpg', 1),
+(2, '2022/04/23/0_ao-so-mi-cho-nu.jpg', 2),
+(3, '2022/04/23/0_ao-so-mi-nam.jpg', 3),
+(4, '2022/04/23/0_ao-khoac-nu.jpg', 4),
+(5, '2022/04/23/0_concept-ngay-he-cho-nu.jpg', 5),
+(6, '2022/04/23/0_dong-ho-omega.jpg', 6),
+(7, '2022/04/23/0_ao-khoac-ngang-hong-nu.jpg', 7),
+(8, '2022/04/23/0_ao-phong-nu.jpg', 8),
+(9, '2022/04/23/0_giay-moi-2022.jpg', 9);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_keywork`
+-- Table structure for table `product_keyword`
 --
 
-CREATE TABLE `product_keywork` (
+CREATE TABLE `product_keyword` (
   `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `keyword_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_keyword`
+--
+
+INSERT INTO `product_keyword` (`id`, `product_id`, `keyword_id`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2),
+(4, 5, 1),
+(5, 6, 3),
+(6, 6, 2),
+(7, 7, 1),
+(8, 7, 4),
+(9, 8, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_product_type`
+--
+
+CREATE TABLE `product_product_type` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `product_type_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_product_type`
+--
+
+INSERT INTO `product_product_type` (`id`, `product_id`, `product_type_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 2),
+(4, 6, 3),
+(5, 8, 1),
+(6, 9, 5);
 
 -- --------------------------------------------------------
 
@@ -210,7 +292,9 @@ INSERT INTO `product_type` (`id`, `name`, `slug`, `active`) VALUES
 (2, 'Áo sơ mi', 'ao-so-mi', 1),
 (3, 'Đồng hồ', 'dong-ho', 1),
 (4, 'Thắt lưng', 'that-lung', 1),
-(5, 'Giày', 'giay', 1);
+(5, 'Giày', 'giay', 1),
+(6, 'Áo khoác', 'ao-khoac', 1),
+(7, 'Áo croptop', 'ao-croptop', 1);
 
 -- --------------------------------------------------------
 
@@ -397,7 +481,8 @@ ALTER TABLE `permission`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_trademark_id_fk` (`trademark_id`);
 
 --
 -- Indexes for table `product_image`
@@ -407,12 +492,20 @@ ALTER TABLE `product_image`
   ADD KEY `product_image_product_id_fk` (`product_id`);
 
 --
--- Indexes for table `product_keywork`
+-- Indexes for table `product_keyword`
 --
-ALTER TABLE `product_keywork`
+ALTER TABLE `product_keyword`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_keywork_product_id_fk` (`product_id`),
   ADD KEY `product_keywork_keyword_id_fk` (`keyword_id`);
+
+--
+-- Indexes for table `product_product_type`
+--
+ALTER TABLE `product_product_type`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_product_type_product_id_fk` (`product_id`),
+  ADD KEY `product_product_type_product_type_id_fk` (`product_type_id`);
 
 --
 -- Indexes for table `product_type`
@@ -476,7 +569,7 @@ ALTER TABLE `activity`
 -- AUTO_INCREMENT for table `keyword`
 --
 ALTER TABLE `keyword`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `note`
@@ -494,25 +587,31 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `product_keywork`
+-- AUTO_INCREMENT for table `product_keyword`
 --
-ALTER TABLE `product_keywork`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product_keyword`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `product_product_type`
+--
+ALTER TABLE `product_product_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `product_type`
 --
 ALTER TABLE `product_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -568,17 +667,30 @@ ALTER TABLE `permission`
   ADD CONSTRAINT `permission_role_id_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_trademark_id_fk` FOREIGN KEY (`trademark_id`) REFERENCES `trademark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `product_image`
 --
 ALTER TABLE `product_image`
   ADD CONSTRAINT `product_image_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `product_keywork`
+-- Constraints for table `product_keyword`
 --
-ALTER TABLE `product_keywork`
+ALTER TABLE `product_keyword`
   ADD CONSTRAINT `product_keywork_keyword_id_fk` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `product_keywork_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `product_product_type`
+--
+ALTER TABLE `product_product_type`
+  ADD CONSTRAINT `product_product_type_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `product_product_type_product_type_id_fk` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `slider_image`

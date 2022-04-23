@@ -1,35 +1,39 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\AnhSlider;
-use common\models\ChiTietSanPham;
-use common\models\DonHang;
-use common\models\PhanLoai;
-use common\models\PhanLoaiSanPham;
-use common\models\QuanLySanPham;
-use common\models\SanPham;
-use common\models\Slider;
-use common\models\TuKhoa;
-use common\models\TuKhoaSanPham;
-use common\models\User;
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
 use Yii;
-use yii\base\InvalidArgumentException;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\helpers\VarDumper;
-use yii\swiftmailer\Mailer;
-use yii\web\BadRequestHttpException;
+use common\models\User;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use common\models\myAPI;
+use common\models\Slider;
+use common\models\TuKhoa;
+use common\models\DonHang;
+use common\models\Product;
+use common\models\SanPham;
+use yii\helpers\VarDumper;
 use yii\web\HttpException;
+use common\models\PhanLoai;
+use yii\filters\VerbFilter;
+use yii\swiftmailer\Mailer;
+use common\models\AnhSlider;
+use common\models\LoginForm;
+use common\models\ProductType;
+use common\models\SliderImage;
+use yii\filters\AccessControl;
+use frontend\models\SignupForm;
+use common\models\QuanLySanPham;
+use common\models\TuKhoaSanPham;
+use frontend\models\ContactForm;
+use common\models\ChiTietSanPham;
+use common\models\PhanLoaiSanPham;
+use frontend\models\VerifyEmailForm;
+use yii\web\BadRequestHttpException;
+use frontend\models\ResetPasswordForm;
+use yii\base\InvalidArgumentException;
+use frontend\models\PasswordResetRequestForm;
+use frontend\models\ResendVerificationEmailForm;
 
 class SiteController extends Controller
 {
@@ -74,16 +78,14 @@ class SiteController extends Controller
     /** index */
     public function actionIndex()
     {
-        $sliders = AnhSlider::find()->all();
-        $san_phams = SanPham::find()->andFilterWhere(['noi_bat' => SanPham::NOI_BAT])->limit(10)->all();
-        $san_pham_ban_chays = SanPham::find()->andFilterWhere(['ban_chay' => SanPham::BAN_CHAY])->limit(10)->all();
-        $san_pham_moi_ves = SanPham::find()->andFilterWhere(['moi_ve' => SanPham::MOI_VE])->limit(10)->all();
+        $sliders = SliderImage::find()->limit(3)->all();
+        $product_types = ProductType::find()->andWhere(['active' => myAPI::ACTIVE])->limit(5)->all();
+        $products = Product::find()->andWhere(['active' => myAPI::ACTIVE])->limit(16)->all();
 
         return $this->render('index', [
             'sliders' => $sliders,
-            'san_phams' => $san_phams,
-            'san_pham_ban_chays' => $san_pham_ban_chays,
-            'san_pham_moi_ves' => $san_pham_moi_ves
+            'product_types' => $product_types,
+            'products' => $products,
         ]);
     }
 

@@ -17,7 +17,7 @@ class KeywordController extends Controller
 {
     public function behaviors()
     {
-        $arr_action = ['index', 'create', 'update', 'delete'];
+        $arr_action = ['index', 'create', 'update', 'delete', 'list'];
         $rules = [];
         foreach ($arr_action as $item) {
             $rules[] = [
@@ -179,6 +179,27 @@ class KeywordController extends Controller
             return $this->redirect(['index']);
         }
     }
+
+    /** list */
+    public function actionList($query)
+    {
+        $request = Yii::$app->request;
+
+        if($request->isAjax){
+            $keywords = Keyword::find()->andWhere(['like', 'name', $query])->all();
+            $item = [];
+
+            foreach($keywords as $keyword) {
+                $item[] = ['name' => $keyword->name];
+            }
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $item;
+        }else{
+            throw new NotFoundHttpException('Đường dẫn sai cú pháp');
+        }
+    }
+
     protected function findModel($id)
     {
         if (($model = Keyword::findOne(['id' => $id, 'active' => myAPI::ACTIVE])) !== null) {
