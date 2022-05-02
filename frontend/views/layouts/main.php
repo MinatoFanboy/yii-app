@@ -3,12 +3,13 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
+use common\widgets\Alert;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -36,7 +37,7 @@ AppAsset::register($this);
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="<?= Url::toRoute('site/index') ?>" class="logo">
 						<img src="frontend/assets/template/images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
@@ -44,20 +45,19 @@ AppAsset::register($this);
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Trang chủ</a>
+								<a href="<?= Url::toRoute('site/index') ?>">Trang chủ</a>
 							</li>
 
 							<li>
-								<a href="product.html">Cửa hàng</a>
+								<a href="<?= Url::toRoute('product/index') ?>">Cửa hàng</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Nổi bật</a>
+								<a href="<?= Url::toRoute('product/feature') ?>">Nổi bật</a>
 							</li>
 
-
 							<li>
-								<a href="contact.html">Liên hệ</a>
+								<a href="<?= Url::toRoute('site/about') ?>">Liên hệ</a>
 							</li>
 						</ul>
 					</div>	
@@ -71,10 +71,6 @@ AppAsset::register($this);
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
 					</div>
 				</nav>
 			</div>	
@@ -84,7 +80,7 @@ AppAsset::register($this);
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="frontend/assets/template/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="<?= Url::toRoute('site/index') ?>"><img src="frontend/assets/template/images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -96,10 +92,6 @@ AppAsset::register($this);
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-					<i class="zmdi zmdi-favorite-outline"></i>
-				</a>
 			</div>
 
 			<!-- Button show menu -->
@@ -115,19 +107,19 @@ AppAsset::register($this);
 		<div class="menu-mobile">
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Trang chủ</a>
+					<a href="<?= Url::toRoute('site/index') ?>">Trang chủ</a>
 				</li>
 
 				<li>
-					<a href="product.html">Cửa hàng</a>
+					<a href="<?= Url::toRoute('product/index') ?>">Cửa hàng</a>
 				</li>
 
 				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Nổi bật</a>
+					<a href="<?= Url::toRoute('product/feature') ?>" class="label1 rs1" data-label1="hot">Nổi bật</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Liên hệ</a>
+					<a href="<?= Url::toRoute('site/about') ?>">Liên hệ</a>
 				</li>
 			</ul>
 		</div>
@@ -242,7 +234,7 @@ AppAsset::register($this);
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Categories
+						TỪ KHÓA
 					</h4>
 
 					<ul>
@@ -274,25 +266,25 @@ AppAsset::register($this);
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Help
+						TRỢ GIÚP
 					</h4>
 
 					<ul>
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
+								Trạng thái đơn hàng
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+								Hoàn hàng
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
+								Mua sắm
 							</a>
 						</li>
 
@@ -306,31 +298,27 @@ AppAsset::register($this);
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						GET IN TOUCH
+						LIÊN LẠC
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Nếu bạn có bất cứ câu hỏi nào vui lòng gửi về số điện thoại (+84) 399 325 199
 					</p>
 
 					<div class="p-t-27">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="facebook.com/minatofanboy" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-facebook"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="instagram/minato99" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-instagram"></i>
-						</a>
-
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
 						</a>
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
+						GÓP Ý
 					</h4>
 
 					<form>
@@ -341,7 +329,7 @@ AppAsset::register($this);
 
 						<div class="p-t-18">
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
+								ĐĂNG KÝ
 							</button>
 						</div>
 					</form>
