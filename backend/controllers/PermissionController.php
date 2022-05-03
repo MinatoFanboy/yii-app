@@ -14,7 +14,7 @@ use common\models\Permission;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 
-class PermissionController extends CoreController
+class PermissionController extends BaseController
 {
     public function behaviors()
     {

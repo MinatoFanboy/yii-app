@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
 
-class ActivityController extends CoreController
+class ActivityController extends BaseController
 {
     public function behaviors()
     {

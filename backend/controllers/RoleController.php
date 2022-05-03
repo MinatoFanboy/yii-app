@@ -12,7 +12,7 @@ use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use common\models\searchs\RoleSearch;
 
-class RoleController extends CoreController
+class RoleController extends BaseController
 {
     public function behaviors()
     {

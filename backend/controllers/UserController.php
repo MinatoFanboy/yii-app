@@ -17,7 +17,7 @@ use yii\web\NotFoundHttpException;
 use common\models\exports\exportUser;
 use common\models\searchs\UserSearch;
 
-class UserController extends CoreController
+class UserController extends BaseController
 {
     public function behaviors()
     {

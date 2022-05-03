@@ -13,7 +13,7 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 use Yii;
 
-class TableController extends CoreController
+class TableController extends BaseController
 {
     public function behaviors()
     {

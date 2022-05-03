@@ -7,7 +7,7 @@ use common\models\User;
 use yii\helpers\Url;
 use yii\web\Controller;
 
-class CoreController extends Controller
+class BaseController extends Controller
 {
     public function beforeAction($action)
     {
@@ -16,8 +16,8 @@ class CoreController extends Controller
             'logout',
             'error'
         ])) {
-            if(!\Yii::$app->user->isGuest){
-                $user = User::findOne(\Yii::$app->user->id);
+            if(!Yii::$app->user->isGuest){
+                $user = User::findOne(Yii::$app->user->id);
                 if($user->status == 0)
                     $this->redirect(Url::toRoute('site/logout'));
             }

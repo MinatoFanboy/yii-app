@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use yii\filters\AccessControl;
 
-class AutocompleteController extends CoreController
+class AutocompleteController extends BaseController
 {
     public function behaviors()
     {
