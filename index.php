@@ -1,6 +1,7 @@
 <?php
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
+// ini_set('max_execution_time', 1000);
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
@@ -14,4 +15,7 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/frontend/config/main-local.php'
 );
 
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Headers: Authorization");
 (new yii\web\Application($config))->run();
