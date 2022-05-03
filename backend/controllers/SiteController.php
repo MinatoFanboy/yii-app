@@ -1,16 +1,17 @@
 <?php
 namespace backend\controllers;
 
-use common\models\LoginForm;
-use common\models\User;
 use Igo;
-use Twilio\Rest\Client;
 use Yii;
-use yii\filters\AccessControl;
-use yii\helpers\VarDumper;
-use yii\web\Controller;
-use yii\web\HttpException;
 use yii\web\Response;
+use common\models\User;
+use Twilio\Rest\Client;
+use yii\web\Controller;
+use common\models\Product;
+use yii\helpers\VarDumper;
+use yii\web\HttpException;
+use common\models\LoginForm;
+use yii\filters\AccessControl;
 
 class SiteController extends Controller
 {
@@ -198,5 +199,14 @@ class SiteController extends Controller
         VarDumper::dump($data, 10, true);
 
         curl_close($curl); exit();
+    }
+
+    public function actionQuery() {
+        $product = Product::find()
+            ->select(['name', 'short_description', 'user_created_id'])
+            ->with(['userCreated' => function($query) {
+                $query->select(['username']);
+            }])
+            ->one();
     }
 }

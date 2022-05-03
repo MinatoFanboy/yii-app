@@ -30,6 +30,8 @@ use yii\helpers\FileHelper;
  * @property string|null $user_updated
  *
  * @property Trademark $trademark
+ * @property User $userCreated
+ * @property User $userUpdated
  * @property ProductImage[] $productImages
  * @property ProductKeyword[] $productKeywords
  * @property ProductProductType[] $productProductTypes
@@ -107,6 +109,16 @@ class Product extends myActiveRecord
     public function getTrademark()
     {
         return $this->hasOne(Trademark::className(), ['id' => 'trademark_id']);
+    }
+
+    public function getUserCreated()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_created_id']);
+    }
+
+    public function getUserUpdated()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_updated_id']);
     }
 
     public function getProductImages()
