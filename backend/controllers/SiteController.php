@@ -22,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'convert-japanese'],
+                        'actions' => ['login', 'error', 'convert-japanese', 'update'],
                         'allow' => true,
                     ],
                     [
@@ -152,7 +152,7 @@ class SiteController extends Controller
     {
         $igo = new Igo\Tagger();
 
-        $title = '根管治療';
+        $title = '誤嚥性肺炎';
 
         $result = $igo->parse($title);
         $str = "";
@@ -201,12 +201,15 @@ class SiteController extends Controller
         curl_close($curl); exit();
     }
 
-    public function actionQuery() {
-        $product = Product::find()
-            ->select(['name', 'short_description', 'user_created_id'])
-            ->with(['userCreated' => function($query) {
-                $query->select(['username']);
-            }])
-            ->one();
+    /** update */
+    public function actionUpdate() {
+        $products = Product::find()->all();
+        foreach ($products as $product) {
+            $arr_product_type = [];
+            foreach ($product->productProductTypes as $productProductType) {
+                $arr_product_type[] = $productProductType->productType->slug;
+            }
+            $product->updateAttributes(['class_type' => implode(' ', $arr_product_type)]);
+        }
     }
 }

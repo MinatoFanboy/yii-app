@@ -76,7 +76,7 @@ class TrademarkController extends Controller
     public function actionUpdate($id)
     {
         $request = Yii::$app->request;
-        $model = $this->findModel($id);       
+        $model = $this->findModel($id);    
 
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);

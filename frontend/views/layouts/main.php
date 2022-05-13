@@ -5,11 +5,9 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use common\widgets\Alert;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
+use common\models\Keyword;
+use common\models\myAPI;
 
 AppAsset::register($this);
 ?>
@@ -38,7 +36,7 @@ AppAsset::register($this);
 					
 					<!-- Logo desktop -->		
 					<a href="<?= Url::toRoute('site/index') ?>" class="logo">
-						<img src="frontend/assets/template/images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/logo-01.png' ?>" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -68,7 +66,7 @@ AppAsset::register($this);
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="1">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 					</div>
@@ -80,7 +78,7 @@ AppAsset::register($this);
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="<?= Url::toRoute('site/index') ?>"><img src="frontend/assets/template/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="<?= Url::toRoute('site/index') ?>"><img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/logo-01.png' ?>" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -89,7 +87,7 @@ AppAsset::register($this);
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="1">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 			</div>
@@ -128,7 +126,7 @@ AppAsset::register($this);
 		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
 				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="frontend/assets/template/images/icons/icon-close2.png" alt="CLOSE">
+					<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-close2.png' ?>" alt="CLOSE">
 				</button>
 
 				<form class="wrap-search-header flex-w p-l-15">
@@ -160,7 +158,7 @@ AppAsset::register($this);
 				<ul class="header-cart-wrapitem w-full">
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
-							<img src="frontend/assets/template/images/item-cart-01.jpg" alt="IMG">
+							<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/item-cart-01.jpg' ?>" alt="IMG">
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">
@@ -170,38 +168,6 @@ AppAsset::register($this);
 
 							<span class="header-cart-item-info">
 								1 x $19.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="frontend/assets/template/images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="frontend/assets/template/images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
 							</span>
 						</div>
 					</li>
@@ -237,30 +203,15 @@ AppAsset::register($this);
 						TỪ KHÓA
 					</h4>
 
+					<?php $keywords = Keyword::find()->andWhere(['active' => myApi::ACTIVE])->limit(4)->all(); ?>
 					<ul>
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
-							</a>
-						</li>
+						<?php foreach($keywords as $keyword): ?>
+							<li class="p-b-10">
+								<a href="<?= Url::toRoute(['keyword/index', 'path' => $keyword->slug]) ?>" class="stext-107 cl7 hov-cl1 trans-04">
+									<?= $keyword->name ?>
+								</a>
+							</li>
+						<?php endforeach; ?>
 					</ul>
 				</div>
 
@@ -271,25 +222,19 @@ AppAsset::register($this);
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="<?= Url::toRoute(['order/index']) ?>" class="stext-107 cl7 hov-cl1 trans-04">
 								Trạng thái đơn hàng
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Hoàn hàng
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="<?= Url::toRoute(['product/index']) ?>" class="stext-107 cl7 hov-cl1 trans-04">
 								Mua sắm
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="<?= Url::toRoute(['site/help']) ?>" class="stext-107 cl7 hov-cl1 trans-04">
 								FAQs
 							</a>
 						</li>
@@ -339,23 +284,23 @@ AppAsset::register($this);
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
 					<a href="#" class="m-all-1">
-						<img src="frontend/assets/template/images/icons/icon-pay-01.png" alt="ICON-PAY">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-pay-01.png' ?>" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="frontend/assets/template/images/icons/icon-pay-02.png" alt="ICON-PAY">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-pay-02.png' ?>" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="frontend/assets/template/images/icons/icon-pay-03.png" alt="ICON-PAY">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-pay-03.png' ?>" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="frontend/assets/template/images/icons/icon-pay-04.png" alt="ICON-PAY">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-pay-04.png' ?>" alt="ICON-PAY">
 					</a>
 
 					<a href="#" class="m-all-1">
-						<img src="frontend/assets/template/images/icons/icon-pay-05.png" alt="ICON-PAY">
+						<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-pay-05.png' ?>" alt="ICON-PAY">
 					</a>
 				</div>
 

@@ -36,14 +36,23 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<action:(san-pham|product|keyword)>-<path:.*?>' => 'site/<action>',
+                'them-vao-gio-hang' => 'site/add-to-cart',
+                'cap-nhat-gio-hang' => 'site/update-cart',
+                'lien-he' => 'site/lien-he',
+                'cua-hang' => 'site/cua-hang',
+                'gio-hang' => 'site/gio-hang',
+                'user' => 'site/user',
+                'timkiem' => 'site/timkiem',
+                'thanh-toan' => 'site/thanh-toan',
+                'yeu-cau-doi-mat-khau' => 'site/request-password-reset',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

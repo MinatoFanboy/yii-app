@@ -9,6 +9,7 @@ use yii\web\Controller;
 use common\models\myAPI;
 use common\models\TuKhoa;
 use common\models\DonHang;
+use common\models\Keyword;
 use common\models\Product;
 use common\models\SanPham;
 use yii\helpers\VarDumper;
@@ -53,9 +54,6 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
@@ -74,11 +72,13 @@ class SiteController extends Controller
     {
         $sliders = SliderImage::find()->limit(3)->all();
         $product_types = ProductType::find()->andWhere(['active' => myAPI::ACTIVE])->limit(5)->all();
+        $keywords = Keyword::find()->andWhere(['active' => myAPI::ACTIVE])->limit(3)->all();
         $products = Product::find()->andWhere(['active' => myAPI::ACTIVE])->limit(16)->all();
 
         return $this->render('index', [
             'sliders' => $sliders,
             'product_types' => $product_types,
+            'keywords' => $keywords,
             'products' => $products,
         ]);
     }

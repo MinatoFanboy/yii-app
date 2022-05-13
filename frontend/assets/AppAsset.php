@@ -9,7 +9,6 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
         "frontend/assets/template/vendor/bootstrap/css/bootstrap.min.css",
         "frontend/assets/template/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
         "frontend/assets/template/fonts/iconic/css/material-design-iconic-font.min.css",
@@ -24,9 +23,9 @@ class AppAsset extends AssetBundle
         "frontend/assets/template/vendor/perfect-scrollbar/perfect-scrollbar.css",
         "frontend/assets/template/css/util.css",
         "frontend/assets/template/css/main.css",
+        "frontend/assets/css/custom.css",
     ];
     public $js = [
-        "frontend/assets/js/script.js",
         "frontend/assets/template/vendor/jquery/jquery-3.2.1.min.js",
         "frontend/assets/template/vendor/animsition/js/animsition.min.js",
         "frontend/assets/template/vendor/bootstrap/js/popper.js",
@@ -42,6 +41,7 @@ class AppAsset extends AssetBundle
         "frontend/assets/template/vendor/sweetalert/sweetalert.min.js",
         "frontend/assets/template/vendor/perfect-scrollbar/perfect-scrollbar.min.js",
         "frontend/assets/template/js/main.js",
+        "frontend/assets/js/script.js",
     ];
     public $depends = [
 //        'yii\web\YiiAsset',

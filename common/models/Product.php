@@ -23,6 +23,7 @@ use yii\helpers\FileHelper;
  * @property int|null $trademark_id
  * @property string|null $trademark_name
  * @property string|null $representation
+ * @property string|null $class_type
  * @property int|null $active
  * @property int|null $user_created_id
  * @property string|null $user_created
@@ -51,7 +52,7 @@ class Product extends myActiveRecord
     {
         return [
             [['name'], 'required', 'message' => '{attribute} không được để trống'],
-            [['description', 'representation'], 'string'],
+            [['description', 'representation', 'class_type'], 'string'],
             [['cost', 'price', 'price_sale', 'images', 'product_types', 'product_keywords'], 'safe'],
             [['exist_day'], 'safe'],
             [['features', 'newest', 'sellest', 'trademark_id', 'active', 'user_created_id', 'user_updated_id'], 'integer'],
@@ -95,6 +96,7 @@ class Product extends myActiveRecord
             'trademark_id' => 'Thương hiệu',
             'trademark_name' => 'Thương hiệu',
             'representation' => 'Ảnh đại diện',
+            'class_type' => 'Class Type',
             'active' => 'Active',
             'user_created_id' => 'User Created ID',
             'user_created' => 'User Created',
@@ -174,14 +176,18 @@ class Product extends myActiveRecord
 
         ProductProductType::deleteAll(['product_id' => $this->id]);
         if (!empty($this->product_types)) {
+            $arr_product_type = [];
             foreach ($this->product_types as $product_type) {
                 $product_product_type = new ProductProductType();
                 $product_product_type->product_id = $this->id;
                 $product_product_type->product_type_id = $product_type;
                 if (!$product_product_type->save()) {
                     throw new HttpException(500, Html::errorSummary($product_product_type));
+                } else {
+                    $arr_product_type[] = $product_product_type->productType->slug;
                 }
             }
+            $this->updateAttributes(['class_type' => implode(' ', $arr_product_type)]);
         }
 
         ProductKeyword::deleteAll(['product_id' => $this->id]);
