@@ -1,11 +1,13 @@
 <?php
 
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Product';
 ?>
 
-<div class="bg0 m-t-23 p-b-140">
+<div class="bg0 m-t-123 p-b-140">
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
@@ -50,7 +52,7 @@ $this->title = 'Product';
 
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                <a href="<?= Url::toRoute(['product/detail', 'path' => $product->id.'_'.$product->slug]) ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     <?= $product->name ?>
                                 </a>
 

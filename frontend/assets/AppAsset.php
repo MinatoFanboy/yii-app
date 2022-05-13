@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
         "frontend/assets/template/vendor/slick/slick.css",
         "frontend/assets/template/vendor/MagnificPopup/magnific-popup.css",
         "frontend/assets/template/vendor/perfect-scrollbar/perfect-scrollbar.css",
+        'frontend/assets/plugins/jquery-confirm-v3.3.3/dist/jquery-confirm.min.css',
         "frontend/assets/template/css/util.css",
         "frontend/assets/template/css/main.css",
         "frontend/assets/css/custom.css",
@@ -40,10 +41,12 @@ class AppAsset extends AssetBundle
         "frontend/assets/template/vendor/isotope/isotope.pkgd.min.js",
         "frontend/assets/template/vendor/sweetalert/sweetalert.min.js",
         "frontend/assets/template/vendor/perfect-scrollbar/perfect-scrollbar.min.js",
+        'frontend/assets/plugins/jquery-confirm-v3.3.3/dist/jquery-confirm.min.js',
         'frontend/assets/plugins/jquery.blockUI.js',
         "frontend/assets/template/js/main.js",
         "frontend/assets/js/script.js",
     ];
+
     public $depends = [
 //        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',

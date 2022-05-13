@@ -11,6 +11,7 @@ use yii\helpers\FileHelper;
 /**
  * @property int $id
  * @property string|null $name
+ * @property string|null $slug
  * @property string|null $short_description
  * @property string|null $description
  * @property float|null $cost
@@ -56,7 +57,7 @@ class Product extends myActiveRecord
             [['cost', 'price', 'price_sale', 'images', 'product_types', 'product_keywords'], 'safe'],
             [['exist_day'], 'safe'],
             [['features', 'newest', 'sellest', 'trademark_id', 'active', 'user_created_id', 'user_updated_id'], 'integer'],
-            [['name', 'trademark_name', 'user_created', 'user_updated'], 'string', 'max' => 100],
+            [['name', 'slug', 'trademark_name', 'user_created', 'user_updated'], 'string', 'max' => 100],
             [['short_description'], 'string', 'max' => 200],
             [['images'], 'validateImages'],
             [['trademark_id'], 'exist', 'skipOnError' => true, 'targetClass' => Trademark::className(), 'targetAttribute' => ['trademark_id' => 'id']],
@@ -84,6 +85,7 @@ class Product extends myActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Tên',
+            'slug' => 'Slug',
             'short_description' => 'Mô tả ngắn gọn',
             'description' => 'Mô tả chi tiết',
             'cost' => 'Giá nhập',

@@ -2,6 +2,10 @@
 (function ($) {
     "use strict";
 
+    function getMessage(str) {
+        return str.replace('Internal Server Error (#500):','');
+    }
+
     /*[ Load page ]
     ===========================================================*/
     $(".animsition").animsition({
@@ -194,7 +198,7 @@
 
     /*==================================================================
     [ Cart ]*/
-    $('.js-show-cart').on('click',function(){
+    $(document).on('click', '.js-show-cart', function(){
         $('.js-panel-cart').addClass('show-header-cart');
     });
 
@@ -214,12 +218,12 @@
 
     /*==================================================================
     [ +/- num product ]*/
-    $('.btn-num-product-down').on('click', function(){
+    $(document).on('click', '.btn-num-product-down', function(){
         var numProduct = Number($(this).next().val());
         if(numProduct > 0) $(this).next().val(numProduct - 1);
     });
 
-    $('.btn-num-product-up').on('click', function(){
+    $(document).on('click', '.btn-num-product-up', function(){
         var numProduct = Number($(this).prev().val());
         $(this).prev().val(numProduct + 1);
     });
@@ -273,7 +277,7 @@
 
         const id = $(this).attr('data-value');
         $.ajax({
-            url: 'product-detail.html',
+            url: 'view-modal-product.html',
             data: {id},
             type: 'post',
             dataType: 'json',
@@ -281,7 +285,7 @@
                 $.blockUI();
             },
             success: function (data) {
-                $('.overlay-modal1.js-hide-modal1 > .container').html(data.content);
+                $('.overlay-modal1.js-hide-modal1 ~ .container').html(data.content);
                 $('.js-modal1').addClass('show-modal1');
             },
             error: function (r1, r2){
@@ -298,10 +302,67 @@
         });
     });
 
-    $('.js-hide-modal1').on('click',function(){
+    $(document).on('click', '.js-hide-modal1', function () {
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    $(document).on('click', '.js-addcart-detail', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: 'add-to-cart.html',
+            data: $("#form-add-to-cart").serializeArray(),
+            dataType: 'json',
+            beforeSend: function() {
+                $('.thong-bao').html('');
+                $.blockUI({message: "Vui lòng chờ trong giây lát"});
+            },
+            success:function( data ) {
+                $('.header-cart-content').html(data.cart);
+                $('.cart_wrapper').html(data.cart_wrapper);
+            },
+            complete: function() {
+                $('.js-modal1').removeClass('show-modal1');
+                $.unblockUI();
+            },
+            error: function (r1, r2){
+                $.dialog({
+                    content: getMessage(r1.responseText),
+                    title: 'Thông báo',
+                    type: 'red',
+                });
+                return false;
+            },
+        });
+    });
 
-
+    $(document).on('click', '.btn-update-shopping-cart', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: 'update-to-cart.html',
+            data: $("#form-checkout").serializeArray(),
+            dataType: 'json',
+            beforeSend: function() {
+                $('.thong-bao').html('');
+                $.blockUI({message: "Vui lòng chờ trong giây lát"});
+            },
+            success:function( data ) {
+                $('.header-cart-content').html(data.cart);
+                $('.cart_wrapper').html(data.cart_wrapper);
+                window.location.reload();
+            },
+            complete: function() {
+                $.unblockUI();
+            },
+            error: function (r1, r2){
+                $.dialog({
+                    content: getMessage(r1.responseText),
+                    title: 'Thông báo',
+                    type: 'red',
+                });
+                return false;
+            },
+        });
+    });
 })(jQuery);

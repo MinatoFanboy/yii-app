@@ -1,7 +1,29 @@
-.content {
+.content-page {
     margin-top: 150px;
 }
 
 .contact_message {
     margin: 20px 0;
+}
+
+.btn-login:hover {
+    border: 1px solid #717fe0;
+}
+
+.btn-register {
+    margin-left: 10px;
+    border: 1px solid #717fe0;
+    color: #717fe0;
+    display: inline-block;
+    text-align: center;
+    line-height: 45px;
+}
+
+.btn-register:hover {
+    color: #fff;
+    background-color: #717fe0;
+}
+
+.alert {
+    margin-bottom: 0;
 }

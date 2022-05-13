@@ -36,3 +36,6 @@ composer require 2amigos/yii2-ckeditor-widget:^2.1
 * jquery-confirm
 * printArea.js
 * blockUI.js
+``` Enable email
+https://www.google.com/settings/security/lesssecureapps
+```

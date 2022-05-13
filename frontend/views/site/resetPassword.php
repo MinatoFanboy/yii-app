@@ -7,25 +7,24 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Reset password';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Khôi phục mật khẩu';
 ?>
-<div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="p-t-165 p-b-85">
+    <div class="container">
+        <div class="site-reset-password">
+            <div class="row">
+                <div class="col-lg-5">
+                    <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-    <p>Please choose your new password:</p>
+                        <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+                        <div class="form-group">
+                            <?= Html::submitButton('Lưu lại', ['class' => 'btn-login size-103 hov-btn2 bg1 bor1 cl0 stext-101']) ?>
+                        </div>
 
-                <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+                    <?php ActiveForm::end(); ?>
                 </div>
-
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
 </div>

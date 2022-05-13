@@ -31,7 +31,7 @@ class UserSearch extends User
 
     public function search($params)
     {
-        $query = User::find()->select(['username', 'name', 'phone', 'email', 'status', 'created_at', 'id', 'role']);
+        $query = User::find()->select(['username', 'name', 'phone', 'email', 'status', 'created_at', 'id', 'role'])->andWhere(['type' => User::THANH_VIEN]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

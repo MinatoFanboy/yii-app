@@ -5,9 +5,7 @@ use Yii;
 use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Product;
-use yii\web\HttpException;
 use yii\filters\AccessControl;
-use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {
@@ -16,12 +14,17 @@ class ProductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'feature'],
+                'only' => ['index', 'detail', 'feature'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'feature'],
+                        'actions' => ['index', 'detail', 'feature'],
                         'allow' => true,
                         'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index', 'detail', 'feature'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -29,16 +32,32 @@ class ProductController extends Controller
     }
 
     /** index */
-    public function actionIndex($path = '')
+    public function actionIndex()
     {
-        $products = Product::find()->andWhere(['active' => myAPI::ACTIVE]);
-        if ($path) {
-        }
-
-        $products = $products->all();
+        $products = Product::find()->andWhere(['active' => myAPI::ACTIVE])->all();
 
         return $this->render('index', [
             'products' => $products,
+        ]);
+    }
+
+    /** detail */
+    public function actionDetail($path = '')
+    {
+        $arr = explode('_', $path);
+        $product = Product::findOne($arr[0]);
+        $product_relations = Product::find()
+            ->andWhere(['<>', 'id', $product->id])
+            ->andWhere(['or', 
+                ['trademark_name' => $product->trademark_name], 
+                ['features' => $product->features], 
+                ['newest' => $product->newest], 
+                ['sellest' => $product->sellest]])
+            ->limit(8)->all();
+
+        return $this->render('detail', [
+            'product' => $product,
+            'product_relations' => $product_relations,
         ]);
     }
 

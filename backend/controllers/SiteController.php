@@ -7,6 +7,7 @@ use yii\web\Response;
 use common\models\User;
 use Twilio\Rest\Client;
 use yii\web\Controller;
+use common\models\myAPI;
 use common\models\Product;
 use yii\helpers\VarDumper;
 use yii\web\HttpException;
@@ -205,11 +206,7 @@ class SiteController extends Controller
     public function actionUpdate() {
         $products = Product::find()->all();
         foreach ($products as $product) {
-            $arr_product_type = [];
-            foreach ($product->productProductTypes as $productProductType) {
-                $arr_product_type[] = $productProductType->productType->slug;
-            }
-            $product->updateAttributes(['class_type' => implode(' ', $arr_product_type)]);
+            $product->updateAttributes(['slug' => myAPI::createCode($product->name)]);
         }
     }
 }

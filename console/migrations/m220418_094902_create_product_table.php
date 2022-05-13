@@ -9,6 +9,7 @@ class m220418_094902_create_product_table extends Migration
         $this->createTable('{{%product}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(100),
+            'slug' => $this->string(100),
             'short_description' => $this->string(200),
             'description' => $this->text(),
             'cost' => $this->decimal(20, 3)->defaultValue(0),
@@ -20,6 +21,8 @@ class m220418_094902_create_product_table extends Migration
             'sellest' => $this->tinyInteger()->defaultValue(0),
             'trademark_id' => $this->integer(),
             'trademark_name' => $this->string(100),
+            'representation' => $this->text(),
+            'class_type' => $this->text(),
             'active' => $this->tinyInteger()->defaultValue(1),
             'user_created_id' => $this->integer(),
             'user_created' => $this->string(100),

@@ -21,6 +21,7 @@ class m220404_071818_create_user_table extends Migration
             'name' => $this->string(100),
             'phone' => $this->string(20),
             'email' => $this->string(100)->notNull(),
+            'address' => $this->text(),
             'status' => $this->tinyInteger()->defaultValue(10),
             'created_at' => $this->dateTime()->notNull(),
             'updated_at' => $this->dateTime(),

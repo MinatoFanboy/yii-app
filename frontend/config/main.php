@@ -12,8 +12,22 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'encryption' => 'tls',
+                'host' => 'smtp.gmail.com',
+                'port' => '587',
+                'username' => 'thanhpt.work@gmail.com',
+                'password' => '31299t@T',
+            ],             
+        ],
         'request' => [
-            'csrfParam' => '_csrf-frontend',
+            // 'csrfParam' => '_csrf-frontend',
+            'enableCsrfValidation' => false,
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -39,19 +53,25 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'suffix' => '.html', // Hậu tố
             'rules' => [
+                /** Tên chuyển đổi => controller/action */
+                /** '<action:(san-pham|product|tu-khoa)>-<path:.*?>' => 'site/<action>', */
                 '' => 'site/index',
-                '<action:(san-pham|product|keyword)>-<path:.*?>' => 'site/<action>',
-                'them-vao-gio-hang' => 'site/add-to-cart',
-                'cap-nhat-gio-hang' => 'site/update-cart',
-                'product-detail' => 'site/product-detail`',
-                'lien-he' => 'site/lien-he',
-                'cua-hang' => 'site/cua-hang',
-                'gio-hang' => 'site/gio-hang',
-                'user' => 'site/user',
-                'timkiem' => 'site/timkiem',
-                'thanh-toan' => 'site/thanh-toan',
-                'yeu-cau-doi-mat-khau' => 'site/request-password-reset',
+                'about' => 'site/about',
+                'login' => 'site/login',
+                'signup' => 'site/signup',
+                'logout' => 'site/logout',
+                'view-modal-product' => 'site/view-modal-product',
+                'request-password-reset' => 'site/request-password-reset',
+                'reset-password' => 'site/reset-password',
+                'product-<path:.*?>' => 'product/detail',
+                'product' => 'product/index',
+                'feature' => 'product/feature',
+                'keyword-<path:.*?>' => 'keyword/index',
+                'add-to-cart' => 'shopping-cart/add-product',
+                'update-to-cart' => 'shopping-cart/update-product',
+                'shopping-cart' => 'shopping-cart/index',
             ],
         ],
     ],

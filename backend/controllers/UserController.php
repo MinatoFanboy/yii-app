@@ -65,6 +65,7 @@ class UserController extends BaseController
     {
         $request = Yii::$app->request;
         $model = new User();
+        $model->type = User::THANH_VIEN;
         $roles = ArrayHelper::map(Role::find()->andWhere(['status' => myAPI::ACTIVE])->andWhere(['<>', 'id', 1])->all(), 'id', 'name');
 
         if($request->isAjax){
@@ -251,7 +252,7 @@ class UserController extends BaseController
 
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = User::findOne(['id' => $id, 'type' => User::THANH_VIEN])) !== null) {
             if ($id === 1 && Yii::$app->user->id !== 1) {
                 throw new NotFoundHttpException('Bạn không được phép sửa người dùng này');
             } else {

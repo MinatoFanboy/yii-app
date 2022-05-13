@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2022 at 09:33 AM
+-- Generation Time: May 13, 2022 at 03:13 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.26
 
@@ -170,6 +170,7 @@ CREATE TABLE `product` (
   `trademark_id` int(11) DEFAULT NULL,
   `trademark_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `representation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `class_type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(4) DEFAULT 1,
   `user_created_id` int(11) DEFAULT NULL,
   `user_created` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -181,16 +182,16 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `short_description`, `description`, `cost`, `price`, `price_sale`, `exist_day`, `features`, `newest`, `sellest`, `trademark_id`, `trademark_name`, `representation`, `active`, `user_created_id`, `user_created`, `user_updated_id`, `user_updated`) VALUES
-(1, 'Áo phông cho nữ', 'Áo phông cho nữ', '<p>&Aacute;o ph&ocirc;ng cho nữ</p>\r\n', '120000.000', '150000.000', '140000.000', '2022-04-30 00:00:00', 1, 1, 0, 2, 'Chanel', '2022/04/21/0_ao-phong-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(2, 'Áo sơ mi cho nữ', 'Áo sơ mi cho nữ', '<p>&Aacute;o sơ mi cho nữ</p>\r\n', '200000.000', '230000.000', '220000.000', '2022-04-30 00:00:00', 0, 1, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(3, 'Áo sơ mi nam', 'Áo sơ mi nam', '<p>&Aacute;o sơ mi nam</p>\r\n', '150000.000', '180000.000', '170000.000', '2022-04-01 00:00:00', 0, 0, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-nam.jpg', 1, 1, 'admin', NULL, NULL),
-(4, 'Áo khoác nữ', 'Áo khoác nữ', '<p>&Aacute;o kh&oacute;a nữ</p>\r\n', '500000.000', '650000.000', '640000.000', '2022-10-01 00:00:00', 0, 0, 0, 2, 'Chanel', '2022/04/23/0_ao-khoac-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(5, 'Concept ngày hè cho nữ', 'Concept ngày hè cho nữ', '<p>Concept ng&agrave;y h&egrave; cho nữ</p>\r\n', '500000.000', '980000.000', '950000.000', '2022-05-15 00:00:00', 0, 0, 0, 1, 'Gucci', '2022/04/23/0_concept-ngay-he-cho-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(6, 'Đồng hồ Omega', 'Đồng hồ Omega', '<p>Đồng hồ Omega</p>\r\n', '2500000.000', '3000000.000', '2999000.000', '2022-04-23 00:00:00', 1, 1, 0, NULL, NULL, '2022/04/23/0_dong-ho-omega.jpg', 1, 1, 'admin', NULL, NULL),
-(7, 'Áo khoác ngang hông nữ', 'Áo khoác ngang hông nữ', '<p>&Aacute;o kho&aacute;c ngang h&ocirc;ng nữ</p>\r\n', '600000.000', '800000.000', '750000.000', '2022-04-25 00:00:00', 1, 0, 1, 2, 'Chanel', '2022/04/23/0_ao-khoac-ngang-hong-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(8, 'Áo phông nữ', 'Áo phông nữ', '<p>&Aacute;o ph&ocirc;ng nữ</p>\r\n', '200000.000', '350000.000', '320000.000', '2022-04-15 00:00:00', 1, 1, 0, 1, 'Gucci', '2022/04/23/0_ao-phong-nu.jpg', 1, 1, 'admin', NULL, NULL),
-(9, 'Giày mới 2022', 'Giày mới 2022', '<p>Gi&agrave;y mới 2022</p>\r\n', '3500000.000', '4000000.000', '3900000.000', '2022-04-30 00:00:00', 1, 0, 0, 3, 'Adidas', '2022/04/23/0_giay-moi-2022.jpg', 1, 1, 'admin', NULL, NULL);
+INSERT INTO `product` (`id`, `name`, `short_description`, `description`, `cost`, `price`, `price_sale`, `exist_day`, `features`, `newest`, `sellest`, `trademark_id`, `trademark_name`, `representation`, `class_type`, `active`, `user_created_id`, `user_created`, `user_updated_id`, `user_updated`) VALUES
+(1, 'Áo phông cho nữ', 'Áo phông cho nữ', '<p>&Aacute;o ph&ocirc;ng cho nữ</p>\r\n', '120000.000', '150000.000', '140000.000', '2022-04-30 00:00:00', 1, 1, 0, 2, 'Chanel', '2022/04/21/0_ao-phong-cho-nu.jpg', 'ao-phong', 1, 1, 'admin', NULL, NULL),
+(2, 'Áo sơ mi cho nữ', 'Áo sơ mi cho nữ', '<p>&Aacute;o sơ mi cho nữ</p>\r\n', '200000.000', '230000.000', '220000.000', '2022-04-30 00:00:00', 0, 1, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-cho-nu.jpg', 'ao-so-mi', 1, 1, 'admin', NULL, NULL),
+(3, 'Áo sơ mi nam', 'Áo sơ mi nam', '<p>&Aacute;o sơ mi nam</p>\r\n', '150000.000', '180000.000', '170000.000', '2022-04-01 00:00:00', 0, 0, 1, 1, 'Gucci', '2022/04/23/0_ao-so-mi-nam.jpg', 'ao-so-mi', 1, 1, 'admin', NULL, NULL),
+(4, 'Áo khoác nữ', 'Áo khoác nữ', '<p>&Aacute;o kh&oacute;a nữ</p>\r\n', '500000.000', '650000.000', '640000.000', '2022-10-01 00:00:00', 0, 0, 0, 2, 'Chanel', '2022/04/23/0_ao-khoac-nu.jpg', '', 1, 1, 'admin', NULL, NULL),
+(5, 'Concept ngày hè cho nữ', 'Concept ngày hè cho nữ', '<p>Concept ng&agrave;y h&egrave; cho nữ</p>\r\n', '500000.000', '980000.000', '950000.000', '2022-05-15 00:00:00', 0, 0, 0, 1, 'Gucci', '2022/04/23/0_concept-ngay-he-cho-nu.jpg', '', 1, 1, 'admin', NULL, NULL),
+(6, 'Đồng hồ Omega', 'Đồng hồ Omega', '<p>Đồng hồ Omega</p>\r\n', '2500000.000', '3000000.000', '2999000.000', '2022-04-23 00:00:00', 1, 1, 0, NULL, NULL, '2022/04/23/0_dong-ho-omega.jpg', 'dong-ho', 1, 1, 'admin', NULL, NULL),
+(7, 'Áo khoác ngang hông nữ', 'Áo khoác ngang hông nữ', '<p>&Aacute;o kho&aacute;c ngang h&ocirc;ng nữ</p>\r\n', '600000.000', '800000.000', '750000.000', '2022-04-25 00:00:00', 1, 0, 1, 2, 'Chanel', '2022/04/23/0_ao-khoac-ngang-hong-nu.jpg', '', 1, 1, 'admin', NULL, NULL),
+(8, 'Áo phông nữ', 'Áo phông nữ', '<p>&Aacute;o ph&ocirc;ng nữ</p>\r\n', '200000.000', '350000.000', '320000.000', '2022-04-15 00:00:00', 1, 1, 0, 1, 'Gucci', '2022/04/23/0_ao-phong-nu.jpg', 'ao-phong', 1, 1, 'admin', NULL, NULL),
+(9, 'Giày mới 2022', 'Giày mới 2022', '<p>Gi&agrave;y mới 2022</p>\r\n', '3500000.000', '4000000.000', '3900000.000', '2022-04-30 00:00:00', 1, 0, 0, 3, 'Adidas', '2022/04/23/0_giay-moi-2022.jpg', 'giay', 1, 1, 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -380,7 +381,8 @@ CREATE TABLE `trademark` (
 INSERT INTO `trademark` (`id`, `name`, `slug`, `file`, `active`) VALUES
 (1, 'Gucci', 'gucci', '2022/04/20/gucci.png', 1),
 (2, 'Chanel', 'chanel', '2022/04/20/chanel.png', 1),
-(3, 'Adidas', 'adidas', '2022/04/20/adidas.png', 1);
+(3, 'Adidas', 'adidas', '2022/04/20/adidas.png', 1),
+(4, '', '', 'no-image.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -482,7 +484,9 @@ ALTER TABLE `permission`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `product_trademark_id_fk` (`trademark_id`);
+  ADD KEY `product_trademark_id_fk` (`trademark_id`),
+  ADD KEY `product_user_created_id` (`user_created_id`),
+  ADD KEY `product_user_updated_id` (`user_updated_id`);
 
 --
 -- Indexes for table `product_image`
@@ -635,7 +639,7 @@ ALTER TABLE `slider_image`
 -- AUTO_INCREMENT for table `trademark`
 --
 ALTER TABLE `trademark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -670,7 +674,9 @@ ALTER TABLE `permission`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_trademark_id_fk` FOREIGN KEY (`trademark_id`) REFERENCES `trademark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `product_trademark_id_fk` FOREIGN KEY (`trademark_id`) REFERENCES `trademark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `product_user_created_id` FOREIGN KEY (`user_created_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `product_user_updated_id` FOREIGN KEY (`user_updated_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product_image`

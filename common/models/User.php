@@ -17,11 +17,13 @@ use yii\base\NotSupportedException;
  * @property string|null $name
  * @property string|null $phone
  * @property string|null $email
+ * @property string|null $address
  * @property int|null $status
  * @property string|null $created_at
  * @property string|null $updated_at
  * @property string|null $deleted_at
  * @property string|null $verification
+ * @property string|null $type
  * @property string|null $role
  * @property int|null $user_created_id
  * @property string|null $user_created
@@ -43,6 +45,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    const THANH_VIEN = 'Thành viên';
+    const KHACH_HANG = 'Khách hàng';
+
     public $roles;
 
     public static function tableName()
@@ -53,11 +58,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password_hash', 'status', 'roles'], 'required', 'message' => '{attribute} không được để trống'],
+            [['username', 'password_hash', 'status'], 'required', 'message' => '{attribute} không được để trống'],
             [['email'], 'email', 'message' => '{attribute} chưa đúng định dạng'],
             [['status', 'user_created_id', 'user_updated_id', 'user_deleted_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['role'], 'string'],
+            [['address', 'type', 'role'], 'string'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'name', 'email', 'verification', 'user_created',
                 'user_updated'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 20],
@@ -66,6 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['user_deleted_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_deleted_id' => 'id']],
             [['username'], 'duplicateAttribute'],
             [['username'], 'validateUsername'],
+            [['roles'], 'validateRole'],
         ];
     }
 
@@ -93,6 +99,17 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
+    public function validateRole($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            if ($this->type == self::THANH_VIEN) {
+                if(!$this->roles){
+                    $this->addError($attribute, 'Vai trò không được để trống');
+                }
+            }
+        }
+    }
+
     public function attributeLabels()
     {
         return [
@@ -104,11 +121,13 @@ class User extends ActiveRecord implements IdentityInterface
             'name' => 'Họ tên',
             'phone' => 'Điện thoại',
             'email' => 'Email',
+            'address' => 'Address',
             'status' => 'Trạng thái',
             'created_at' => 'Ngày tạo',
             'updated_at' => 'Ngày cập nhật',
             'deleted_at' => 'Ngày xóa',
             'verification' => 'Vertication',
+            'type' => 'Type',
             'role' => 'Vai trò',
             'user_created_id' => 'User Created ID',
             'user_created' => 'User Created',
@@ -256,14 +275,19 @@ class User extends ActiveRecord implements IdentityInterface
         if($insert){
             $this->created_at = date('Y-m-d H:i:s');
             $this->setPassword($this->password_hash);
-            $this->user_created_id = Yii::$app->user->id;
-            $this->user_created = $this->userCreated->name;
+            if ($this->type == self::THANH_VIEN) {
+                $this->user_created_id = Yii::$app->user->id;
+                $this->user_created = $this->userCreated->name;
+                $this->type = self::THANH_VIEN;
+            }
         }else{
             $this->updated_at = date('Y-m-d H:i:s');
 
             $old_user = User::findOne($this->id);
-            $this->user_updated_id = Yii::$app->user->id;
-            $this->user_updated = $this->userUpdated->name;
+            if ($this->type == self::THANH_VIEN) {
+                $this->user_updated_id = Yii::$app->user->id;
+                $this->user_updated = $this->userUpdated->name;
+            }
             if($this->password_hash !== $old_user->password_hash){
                 $this->setPassword($this->password_hash);
             }
@@ -277,17 +301,19 @@ class User extends ActiveRecord implements IdentityInterface
         if ($this->id != 1) {
             $role_arr = [];
             UserRole::deleteAll(['user_id' => $this->id]);
-            foreach ($this->roles as $role) {
-                $user_role = new UserRole();
-                $user_role->role_id = intval($role);
-                $user_role->user_id = $this->id;
-                if (!$user_role->save()) {
-                    throw new HttpException(500, Html::errorSummary($user_role));
-                } else {
-                    $role_arr[] = $user_role->role->name;
+            if ($this->roles) {
+                foreach ($this->roles as $role) {
+                    $user_role = new UserRole();
+                    $user_role->role_id = intval($role);
+                    $user_role->user_id = $this->id;
+                    if (!$user_role->save()) {
+                        throw new HttpException(500, Html::errorSummary($user_role));
+                    } else {
+                        $role_arr[] = $user_role->role->name;
+                    }
                 }
+                $this->updateAttributes(['role' => implode(', ', $role_arr)]);
             }
-            $this->updateAttributes(['role' => implode(', ', $role_arr)]);
         }
 
         parent::afterSave($insert, $changedAttributes); // TODO: Change the autogenerated stub
