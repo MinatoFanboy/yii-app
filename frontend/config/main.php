@@ -44,6 +44,7 @@ return [
                 '<action:(san-pham|product|keyword)>-<path:.*?>' => 'site/<action>',
                 'them-vao-gio-hang' => 'site/add-to-cart',
                 'cap-nhat-gio-hang' => 'site/update-cart',
+                'product-detail' => 'site/product-detail`',
                 'lien-he' => 'site/lien-he',
                 'cua-hang' => 'site/cua-hang',
                 'gio-hang' => 'site/gio-hang',

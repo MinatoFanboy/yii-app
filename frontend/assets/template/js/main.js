@@ -270,7 +270,32 @@
     [ Show modal1 ]*/
     $('.js-show-modal1').on('click',function(e){
         e.preventDefault();
-        $('.js-modal1').addClass('show-modal1');
+
+        const id = $(this).attr('data-value');
+        $.ajax({
+            url: 'product-detail.html',
+            data: {id},
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $.blockUI();
+            },
+            success: function (data) {
+                $('.overlay-modal1.js-hide-modal1 > .container').html(data.content);
+                $('.js-modal1').addClass('show-modal1');
+            },
+            error: function (r1, r2){
+                $.dialog({
+                    content: getMessage(r1.responseText),
+                    title: 'Thông báo',
+                    type: 'red',
+                });
+                return false;
+            },
+            complete: function () {
+                $.unblockUI();
+            }
+        });
     });
 
     $('.js-hide-modal1').on('click',function(){

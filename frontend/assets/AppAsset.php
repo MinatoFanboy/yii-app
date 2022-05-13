@@ -40,6 +40,7 @@ class AppAsset extends AssetBundle
         "frontend/assets/template/vendor/isotope/isotope.pkgd.min.js",
         "frontend/assets/template/vendor/sweetalert/sweetalert.min.js",
         "frontend/assets/template/vendor/perfect-scrollbar/perfect-scrollbar.min.js",
+        'frontend/assets/plugins/jquery.blockUI.js',
         "frontend/assets/template/js/main.js",
         "frontend/assets/js/script.js",
     ];

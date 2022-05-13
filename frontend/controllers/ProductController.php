@@ -5,7 +5,9 @@ use Yii;
 use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Product;
+use yii\web\HttpException;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {

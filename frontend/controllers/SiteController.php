@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\Response;
 use common\models\User;
 use yii\web\Controller;
 use common\models\myAPI;
@@ -23,6 +24,7 @@ use yii\filters\AccessControl;
 use frontend\models\SignupForm;
 use common\models\QuanLySanPham;
 use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 use frontend\models\VerifyEmailForm;
 use yii\web\BadRequestHttpException;
 use frontend\models\ResetPasswordForm;
@@ -37,10 +39,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'index', 'product-detail'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup', 'index', 'product-detail'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -599,5 +601,26 @@ class SiteController extends Controller
                 ->orFilterWhere(['like', 'ten_thuong_hieu', $_POST['search']])->all();
         }
         return $this->render('tim_kiem', ['ket_qua' => $ket_qua]);
+    }
+
+    /** product-detail */
+    public function actionProductDetail() {
+        if (Yii::$app->request->isAjax) {
+            if (isset($_POST['id'])) {
+                $product = Product::findOne($_POST['id']);
+                if (is_null($product)) {
+                    throw new HttpException(500, 'Không tìm thấy thông tin sản phẩm');
+                }
+
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return [
+                    'content' => $this->renderAjax('modal', ['product' => $product]),
+                ];
+            } else {
+                throw new HttpException(500, 'Không xác thực dữ liệu gửi lên');
+            }
+        } else {
+            throw new NotFoundHttpException('Đường dẫn sai cú pháp');
+        }
     }
 }
