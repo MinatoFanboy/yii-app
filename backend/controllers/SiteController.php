@@ -97,6 +97,10 @@ class SiteController extends Controller
                         $content = $this->renderAjax('../user/_form_checkbox', ['users' => $users]);
                     }
                 }
+                if ($_POST['type'] == 'upload_user') {
+                    $title = 'Upload';
+                    $content = $this->renderAjax('../user/_form_upload');
+                }
             } else {
                 throw new HttpException(500, 'Không xác thực được dữ liệu');
             }

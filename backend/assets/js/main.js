@@ -249,6 +249,16 @@ $(document).ready(function () {
         downloadExcel(url, {});
     });
 
+    $(document).on('click', '.btn-upload', function (e) {
+        e.preventDefault();
+        loadForm({type: 'upload_user'}, 'm', function (data) {}, function () {
+            const data = new FormData($('#form-upload')[0]);
+            SaveObjectUploadFile("user/upload", data, function (data) {
+                $.pjax.reload('#crud-datatable-pjax');
+            });
+        });
+    });
+
     $(document).on('click', '.btn-loadform', function (e){
         e.preventDefault();
         const index = $(this).attr('data-index');

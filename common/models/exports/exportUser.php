@@ -37,7 +37,7 @@ class exportUser
     }
 
     public function init(){
-        $spreadsheet = IOFactory::load(dirname(dirname(__DIR__)).'./template/EXAMPLE_USER.xlsx');
+        $spreadsheet = IOFactory::load(dirname(dirname(__DIR__)).'/template/EXAMPLE_USER.xlsx');
         $activeSheet = $spreadsheet->getActiveSheet();
         $this->renderBody($activeSheet);
         $activeSheet->setTitle('Danh sách người dùng');
