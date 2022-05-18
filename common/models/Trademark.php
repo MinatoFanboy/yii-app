@@ -46,12 +46,16 @@ class Trademark extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        $this->slug = myAPI::createCode($this->name);
+        if (!$this->slug) {
+            $this->slug = myAPI::createCode($this->name);
+        }
         
         $file = UploadedFile::getInstance($this, 'image');
         if (is_null($file)) {
             if ($insert) {
-                $this->file = 'no-image.jpeg';
+                if (!$this->file) {
+                    $this->file = 'no-image.jpeg';
+                }
             }
         } else {
             $this->file = date('Y/m/d') . '/' . $this->slug . myAPI::get_extension_image($file->type);
