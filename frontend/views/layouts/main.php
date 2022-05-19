@@ -26,7 +26,6 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <body class="animsition">
-	
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -210,9 +209,9 @@ AppAsset::register($this);
 					<h4 class="stext-301 cl0 p-b-30">
 						TỪ KHÓA
 					</h4>
-
-					<?php $keywords = Keyword::find()->andWhere(['active' => myApi::ACTIVE])->limit(4)->all(); ?>
+					
 					<ul>
+						<?php $keywords = $this->params['keywords'] ?>
 						<?php foreach($keywords as $keyword): ?>
 							<li class="p-b-10">
 								<a href="<?= Url::toRoute(['keyword/index', 'path' => $keyword->id.'_'.$keyword->slug]) ?>" class="stext-107 cl7 hov-cl1 trans-04">

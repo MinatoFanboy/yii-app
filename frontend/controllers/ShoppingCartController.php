@@ -4,16 +4,15 @@ namespace frontend\controllers;
 use Yii;
 use yii\helpers\Html;
 use yii\web\Response;
-use yii\web\Controller;
 use common\models\Order;
 use common\models\Product;
-use yii\helpers\VarDumper;
 use yii\web\HttpException;
 use common\models\OrderDetail;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
+use frontend\controllers\CustomController;
 
-class ShoppingCartController extends Controller
+class ShoppingCartController extends CustomController
 {
     public function behaviors()
     {

@@ -2,49 +2,42 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\web\Response;
-use common\models\User;
-use yii\web\Controller;
 use common\models\myAPI;
-use common\models\DonHang;
 use common\models\Keyword;
 use common\models\Product;
-use yii\helpers\VarDumper;
 use yii\web\HttpException;
-use yii\swiftmailer\Mailer;
 use common\models\LoginForm;
 use common\models\ProductType;
 use common\models\SliderImage;
 use yii\filters\AccessControl;
 use frontend\models\SignupForm;
-use common\models\QuanLySanPham;
 use frontend\models\ContactForm;
 use yii\web\NotFoundHttpException;
 use frontend\models\VerifyEmailForm;
 use yii\web\BadRequestHttpException;
 use frontend\models\ResetPasswordForm;
 use yii\base\InvalidArgumentException;
+use frontend\controllers\CustomController;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 
-class SiteController extends Controller
+class SiteController extends CustomController
 {
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index', 'view-modal-product', 'reset', 'reset-password'],
+                'only' => ['logout', 'index', 'view-modal-product', 'reset-password'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view-modal-product', 'reset', 'reset-password'],
+                        'actions' => ['index', 'view-modal-product', 'reset-password'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index', 'view-modal-product', 'reset'],
+                        'actions' => ['logout', 'index', 'view-modal-product'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -64,14 +57,6 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
-    }
-
-    /** reset */
-    public function actionReset() {
-        unset(Yii::$app->session['product']);
-        unset(Yii::$app->session['quantity']);
-        unset(Yii::$app->session['total_money']);
-        unset(Yii::$app->session['total']);
     }
 
     /** index */

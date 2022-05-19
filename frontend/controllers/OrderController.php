@@ -3,15 +3,11 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
 use common\models\Order;
-use common\models\DonHang;
 use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
-use common\models\searchs\OrderSearch;
-use common\models\search\DonHangSearch;
+use frontend\controllers\CustomController;
 
-class OrderController extends Controller
+class OrderController extends CustomController
 {
     public function behaviors()
     {
