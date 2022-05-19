@@ -5,9 +5,9 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Order;
 use yii\filters\VerbFilter;
-use frontend\controllers\CustomController;
+use frontend\controllers\BaseController;
 
-class OrderController extends CustomController
+class OrderController extends BaseController
 {
     public function behaviors()
     {

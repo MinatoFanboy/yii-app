@@ -5,9 +5,9 @@ use Yii;
 use common\models\myAPI;
 use common\models\Product;
 use yii\filters\AccessControl;
-use frontend\controllers\CustomController;
+use frontend\controllers\BaseController;
 
-class ProductController extends CustomController
+class ProductController extends BaseController
 {
     public function behaviors()
     {

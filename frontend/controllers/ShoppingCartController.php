@@ -10,9 +10,9 @@ use yii\web\HttpException;
 use common\models\OrderDetail;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use frontend\controllers\CustomController;
+use frontend\controllers\BaseController;
 
-class ShoppingCartController extends CustomController
+class ShoppingCartController extends BaseController
 {
     public function behaviors()
     {

@@ -18,11 +18,11 @@ use frontend\models\VerifyEmailForm;
 use yii\web\BadRequestHttpException;
 use frontend\models\ResetPasswordForm;
 use yii\base\InvalidArgumentException;
-use frontend\controllers\CustomController;
+use frontend\controllers\BaseController;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 
-class SiteController extends CustomController
+class SiteController extends BaseController
 {
     public function behaviors()
     {
