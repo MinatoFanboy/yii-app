@@ -68,7 +68,6 @@ $(document).ready(function () {
 
     $(document).on('click', '.cart_submit a', function (e) {
         e.preventDefault();
-        // console.log($(this).attr('data-value'))
         $.ajax({
             // type: 'post',
             url: 'cap-nhat-gio-hang.html',

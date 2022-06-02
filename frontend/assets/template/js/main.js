@@ -272,7 +272,7 @@
     
     /*==================================================================
     [ Show modal1 ]*/
-    $('.js-show-modal1').on('click',function(e){
+    $(document).on('click','.js-show-modal1', function(e){
         e.preventDefault();
 
         const id = $(this).attr('data-value');

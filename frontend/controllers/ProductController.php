@@ -70,4 +70,10 @@ class ProductController extends BaseController
             'products' => $products,
         ]);
     }
+
+    /** search */
+    public function actionSearch($keyword){
+        $products = Product::find()->andWhere(['like', 'name', $keyword])->all();
+        return $this->render('../product/index', ['products' => $products]);
+    }
 }

@@ -162,12 +162,12 @@ AppAsset::register($this);
 					<img src="<?= Yii::$app->urlManager->baseUrl . '/frontend/assets/template/images/icons/icon-close2.png' ?>" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
+				<?= Html::beginForm(['product/search'], 'get', ['class' => 'wrap-search-header flex-w p-l-15']) ?>
+					<input class="plh3" type="text" name="keyword" placeholder="Search...">
+					<button class="flex-c-m trans-04" type="submit">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
+				<?= Html::endForm() ?>
 			</div>
 		</div>
 	</header>

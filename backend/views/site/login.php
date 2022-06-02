@@ -5,7 +5,6 @@
 /* @var $model LoginForm */
 
 use backend\assets\LoginAsset;
-use common\models\LoginForm;
 use yii\helpers\Html;
 
 $this->title = 'Đăng nhập';

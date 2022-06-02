@@ -48,7 +48,7 @@ $this->title = 'Chi tiết sản phẩm'
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-204 flex-w flex-m respon6-next">
                                 <form method="post" action="" id="form-add-to-cart">
-                                    <?=Yii::$app->request->csrfParam?>
+                                    <?php Yii::$app->request->csrfParam ?>
                                     <?= Html::hiddenInput('product_id', $product->id) ?>
                                     <div class="wrap-num-product flex-w m-r-20 m-tb-10">
                                         <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">

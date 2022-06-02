@@ -236,14 +236,4 @@ class SiteController extends BaseController
             throw new NotFoundHttpException('Đường dẫn sai cú pháp');
         }
     }
-
-    /** timkiem */
-    public function actionTimkiem(){
-        // if(isset($_POST['search'])){
-        //     $ket_qua = QuanLySanPham::find()->andFilterWhere(['like', 'name', $_POST['search']])
-        //         ->orFilterWhere(['like', 'nhom_san_pham', $_POST['search']])
-        //         ->orFilterWhere(['like', 'ten_thuong_hieu', $_POST['search']])->all();
-        // }
-        // return $this->render('tim_kiem', ['ket_qua' => $ket_qua]);
-    }
 }
