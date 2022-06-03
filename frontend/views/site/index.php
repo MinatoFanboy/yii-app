@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
@@ -93,6 +94,7 @@ $this->title = 'My Application';
         </div>
 
         <div class="row isotope-grid">
+            <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
             <?php foreach ($products as $product): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?= $product->class_type ?>">
                     <!-- Block2 -->
