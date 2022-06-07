@@ -276,9 +276,14 @@
         e.preventDefault();
 
         const id = $(this).attr('data-value');
+        var postData = {
+            id: id,
+            '_csrf-frontend': $('input[name="_csrf-frontend"]').val(),
+        }
+
         $.ajax({
             url: 'view-modal-product.html',
-            data: {id},
+            data: postData,
             type: 'post',
             dataType: 'json',
             beforeSend: function () {
