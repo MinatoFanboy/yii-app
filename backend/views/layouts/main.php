@@ -141,7 +141,7 @@ AppAsset::register($this);
                     <img src="<?= Yii::$app->request->baseUrl.'/../backend/assets/img/user2-160x160.jpg' ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block"><?= Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->username ?></a>
+                    <a href="<?= Url::toRoute(['site/me']) ?>" class="d-block"><?= Yii::$app->user->isGuest ? '' : Yii::$app->user->identity->username ?></a>
                 </div>
             </div>
 
@@ -321,6 +321,7 @@ AppAsset::register($this);
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <?= Yii::$app->session->getFlash('notification'); ?>
                 <?= $content ?>
             </div>
         </section>

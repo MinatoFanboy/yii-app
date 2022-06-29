@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\helpers\VarDumper;
 use yii\web\HttpException;
 use common\models\LoginForm;
+use common\models\ResetPasswordForm;
 use yii\filters\AccessControl;
 
 class SiteController extends Controller
@@ -25,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'loadform'],
+                        'actions' => ['logout', 'index', 'loadform', 'me'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -110,6 +111,17 @@ class SiteController extends Controller
         } else {
             throw new HttpException(500, 'Đường dẫn sai cú pháp');
         }
+    }
+
+    /** me */
+    public function actionMe() {
+        $model = new  ResetPasswordForm();
+        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            Yii::$app->session->setFlash('notification', '<div class="alert alert-success">Đã đổi mật khẩu thành công</div>');
+            $model = new  ResetPasswordForm();
+        }
+
+        return $this->render('me', ['model' => $model]);
     }
 
     /** send-message */
