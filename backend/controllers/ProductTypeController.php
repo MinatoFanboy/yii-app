@@ -12,12 +12,13 @@ use common\models\ProductType;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use common\models\searchs\ProductTypeSearch;
+use yii\web\HttpException;
 
 class ProductTypeController extends Controller
 {
     public function behaviors()
     {
-        $arr_action = ['index', 'create', 'update', 'delete'];
+        $arr_action = ['index', 'create', 'update', 'delete', 'update-status'];
         $rules = [];
         foreach ($arr_action as $item) {
             $rules[] = [
@@ -179,6 +180,24 @@ class ProductTypeController extends Controller
             ];
         }else{
             return $this->redirect(['index']);
+        }
+    }
+
+    /** update-status */
+    public function actionUpdateStatus() {
+        $request = Yii::$app->request;
+        if ($request->isAjax) {
+            if (isset($_POST['id'])) {
+                $this->findModel($_POST['id'])->updateAttributes(['active' => $_POST['value']]);
+
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return [
+                    'title' => 'Cập nhật trạng thái',
+                    'content' => 'Cập nhật trạng thái thành công!',
+                ];
+            }
+        } else {
+            throw new HttpException(500, 'Đường dẫn sai cú pháp');
         }
     }
 

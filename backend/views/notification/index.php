@@ -1,23 +1,20 @@
 <?php
-use yii\web\View;
-use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 use kartik\grid\GridView;
 use johnitvn\ajaxcrud\CrudAsset; 
-use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\searchs\ProductTypeSearch */
+/* @var $searchModel common\models\searchs\NotificationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Loại sản phẩm';
+$this->title = 'Thông báo';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 
 ?>
-<div class="product-type-index">
+<div class="notification-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
             'summary' => "Hiển thị {begin} - {end} trong số {totalCount}",
@@ -29,8 +26,8 @@ CrudAsset::register($this);
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [
                 ['content'=>
-                    Html::a('<i class="glyphicon glyphicon-plus"></i> Thêm loại sản phẩm', ['create'],
-                    ['role'=>'modal-remote','title'=> 'Thêm loại sản phẩm','class'=>'btn btn-primary']).
+                    Html::a('<i class="glyphicon glyphicon-plus"></i> Thêm thông báo', ['create'],
+                    ['role'=>'modal-remote','title'=> 'Thêm thông báo','class'=>'btn btn-primary']).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i> Khôi phục lưới', [''],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Khôi phục lưới'])
                 ],
@@ -40,7 +37,7 @@ CrudAsset::register($this);
             'responsive' => true,          
             'panel' => [
                 'type' => 'primary', 
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Danh sách loại sản phẩm',
+                'heading' => '<i class="glyphicon glyphicon-list"></i> Danh sách thông báo',
             ]
         ])?>
     </div>
@@ -50,6 +47,3 @@ CrudAsset::register($this);
     "footer"=>"",// always need it for jquery plugin
 ])?>
 <?php Modal::end(); ?>
-
-<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/../backend/assets/js/product_type.js', ['depends' => ['backend\assets\AppAsset'],
-    'position' => View::POS_END]); ?>

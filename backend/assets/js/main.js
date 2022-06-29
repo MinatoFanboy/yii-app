@@ -205,7 +205,7 @@ $(document).ready(function () {
                     btnClass: 'btn-primary',
                     action: function () {
                         $.ajax({
-                            url: 'index.php?r=' + url,
+                            url: `index.php?r=${url}&id=${id}`,
                             data: {id},
                             type: 'post',
                             dataType: 'json',

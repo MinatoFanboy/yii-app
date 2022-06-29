@@ -191,6 +191,14 @@ AppAsset::register($this);
                     </li> -->
                     <li class="nav-header">DANH MỤC</li>
                     <li class="nav-item">
+                        <a href="<?= Url::toRoute(['/notification/index']) ?>" class="nav-link">
+                        <i class="nav-icon fas fa-bell"></i>
+                            <p>
+                                Thông báo
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="<?= Url::toRoute(['/product-type/index']) ?>" class="nav-link">
                             <i class="nav-icon fas fa-align-justify"></i>
                             <p>

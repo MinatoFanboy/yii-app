@@ -7,8 +7,6 @@ use yii\web\Response;
 use common\models\User;
 use Twilio\Rest\Client;
 use yii\web\Controller;
-use common\models\myAPI;
-use common\models\Product;
 use yii\helpers\VarDumper;
 use yii\web\HttpException;
 use common\models\LoginForm;
@@ -23,7 +21,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'convert-japanese', 'update'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
                     [
@@ -204,13 +202,5 @@ class SiteController extends Controller
         VarDumper::dump($data, 10, true);
 
         curl_close($curl); exit();
-    }
-
-    /** update */
-    public function actionUpdate() {
-        $products = Product::find()->all();
-        foreach ($products as $product) {
-            $product->updateAttributes(['slug' => myAPI::createCode($product->name)]);
-        }
     }
 }

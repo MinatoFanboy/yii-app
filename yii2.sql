@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2022 lúc 10:03 PM
+-- Thời gian đã tạo: Th6 26, 2022 lúc 04:09 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.28
 
@@ -713,7 +713,7 @@ ALTER TABLE `slider_image`
 -- AUTO_INCREMENT cho bảng `trademark`
 --
 ALTER TABLE `trademark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `user`

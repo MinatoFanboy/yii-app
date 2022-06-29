@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use common\models\myAPI;
 
 return [
     [
@@ -14,6 +15,28 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'name',
     ],
+    // [
+    //     'contentOptions' => ['class' => 'td-select'],
+    //     'class'=>'\kartik\grid\DataColumn',
+    //     'attribute'=>'active',
+    //     'width' => '1%',
+    //     'value' => function($model) {
+    //         return Html::dropDownList('active', '',[
+    //             0 => 'Duyệt',
+    //             1 => 'Không duyệt',
+    //         ], ['class' => 'form-control select-input', 'prompt' => '- Hình thức -']);
+    //     },
+    //     'format' => 'raw',
+    // ],
+    // [
+    //     'header' => 'Duyệt',
+    //     'value' => function($model) {
+    //         return Html::a('<i class="fas fa-check"></i>', '#', ['title' => 'Duyệt', 'class' => 'duyet-san-pham', 'data-value' => $model->id]);
+    //     },
+    //     'format' => 'raw',
+    //     'headerOptions' => ['width' => '1%', 'class' => 'text-center text-primary'],
+    //     'contentOptions' => ['class' => 'text-center']
+    // ],
     [
         'header' => 'Sửa',
         'value' => function($model) {

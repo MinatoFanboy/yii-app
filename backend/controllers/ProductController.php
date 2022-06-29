@@ -3,12 +3,10 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\helpers\Html;
 use \yii\web\Response;
 use yii\web\Controller;
 use common\models\myAPI;
 use common\models\Product;
-use yii\helpers\VarDumper;
 use yii\filters\VerbFilter;
 use common\models\Trademark;
 use yii\helpers\ArrayHelper;
