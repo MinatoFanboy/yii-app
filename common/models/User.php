@@ -10,6 +10,7 @@ use yii\base\NotSupportedException;
 
 /**
  * @property int $id
+ * @property string|null $avatar
  * @property string|null $username
  * @property string|null $auth_key
  * @property string|null $password_hash
@@ -62,7 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'email', 'message' => '{attribute} chưa đúng định dạng'],
             [['status', 'user_created_id', 'user_updated_id', 'user_deleted_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['address', 'type', 'role'], 'string'],
+            [['avatar', 'address', 'type', 'role'], 'string'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'name', 'email', 'verification', 'user_created',
                 'user_updated'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 20],
@@ -114,6 +115,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
+            'avatar' => 'Ảnh đại diện',
             'username' => 'Tên đăng nhập',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Mật khẩu',
@@ -273,6 +275,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
     {
         if($insert){
+            $this->avatar = 'no-image.jpeg';
             $this->created_at = date('Y-m-d H:i:s');
             $this->setPassword($this->password_hash);
             if ($this->type == self::THANH_VIEN) {
