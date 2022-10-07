@@ -60,6 +60,40 @@ class ApiController extends Controller
         }
     }
 
+    /** update-avatar */
+    public function actionUpload()
+    {
+        $request = Yii::$app->request;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (!$request->isPost) {
+            throw new HttpException(400, 'Request is not accepted');
+        } else {
+            if ($request->post('user_id')) {
+                $user = User::findOne($request->post('user_id'));
+                $file = UploadedFile::getInstanceByName('file');
+                if (!is_null($file)) {
+                    $path = dirname(dirname(__DIR__)) . '/images/user/';
+                    $link_image = date('Y/m/d') . '/' . $user->username . myAPI::get_extension_image($file->type);
+                    if (FileHelper::createDirectory($path . date('Y/m/d') . '/', $mode = 0775, $recursive = true)) {
+                        $file->saveAs($path . $link_image);
+                        $user->updateAttributes(['avatar' => $link_image]);
+                    }
+
+                    return [
+                        'status' => true,
+                        'title' => 'Lưu thương hiệu',
+                        'content' => 'Đã lưu thương hiệu thành công',
+                    ];
+                } else {
+                    throw new HttpException(500, 'Không xác thực dữ liệu');
+                }
+            } else {
+                throw new HttpException(500, 'Không xác thực dữ liệu');
+            }
+        }
+    }
+
     /** get-trademark */
     public function actionGetTrademark()
     {

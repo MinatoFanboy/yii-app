@@ -10,6 +10,7 @@ use yii\base\NotSupportedException;
 
 /**
  * @property int $id
+ * @property string|null $avatar
  * @property string|null $username
  * @property string|null $auth_key
  * @property string|null $password_hash
@@ -116,6 +117,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
+            'avatar' => 'Ảnh đại diện',
             'username' => 'Tên đăng nhập',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Mật khẩu',
@@ -277,6 +279,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
     {
         if($insert){
+            $this->avatar = 'no-image.jpeg';
             $this->created_at = date('Y-m-d H:i:s');
             $this->setPassword($this->password_hash);
             if ($this->type == self::THANH_VIEN) {
