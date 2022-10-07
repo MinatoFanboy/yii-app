@@ -20,7 +20,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" href="<?=Yii::$app->request->baseUrl . '/../images/logo/favicon.ico'?>" type="image/x-icon"/>
 </head>
 <body class="sidebar-mini layout-fixed" style="height: auto">
 <?php $this->beginBody() ?>

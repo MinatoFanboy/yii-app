@@ -69,7 +69,11 @@ class ApiController extends Controller
         if (!$request->isGet) {
             throw new HttpException(400, 'Request is not accepted');
         } else {
-            $trademarks = Trademark::find()->andWhere(['active' => myAPI::ACTIVE])->all();
+            $page = 1;
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+            }
+            $trademarks = Trademark::find()->andWhere(['active' => myAPI::ACTIVE])->limit(12)->offset(($page - 1) * 12)->all();
 
             return $trademarks;
         }

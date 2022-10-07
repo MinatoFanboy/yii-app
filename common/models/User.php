@@ -15,6 +15,8 @@ use yii\base\NotSupportedException;
  * @property string|null $password_hash
  * @property string|null $password_reset_token
  * @property string|null $name
+ * @property string|null $sex
+ * @property string|null $date_of_birth
  * @property string|null $phone
  * @property string|null $email
  * @property string|null $address
@@ -61,8 +63,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['username', 'password_hash', 'status'], 'required', 'message' => '{attribute} không được để trống'],
             [['email'], 'email', 'message' => '{attribute} chưa đúng định dạng'],
             [['status', 'user_created_id', 'user_updated_id', 'user_deleted_id'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['address', 'type', 'role'], 'string'],
+            [['date_of_birth', 'created_at', 'updated_at'], 'safe'],
+            [['sex', 'address', 'type', 'role'], 'string'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'name', 'email', 'verification', 'user_created',
                 'user_updated'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 20],
@@ -119,6 +121,8 @@ class User extends ActiveRecord implements IdentityInterface
             'password_hash' => 'Mật khẩu',
             'password_reset_token' => 'Password Rest Token',
             'name' => 'Họ tên',
+            'sex' => 'Giới tính',
+            'date_of_birth' => 'Ngày sinh',
             'phone' => 'Điện thoại',
             'email' => 'Email',
             'address' => 'Address',

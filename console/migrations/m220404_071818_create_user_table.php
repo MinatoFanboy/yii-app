@@ -19,6 +19,8 @@ class m220404_071818_create_user_table extends Migration
             'password_hash' => $this->string(100),
             'password_reset_token' => $this->string(100),
             'name' => $this->string(100),
+            'sex' => "enum('Nam', 'Nữ')",
+            'date_of_birth' => $this->date(),
             'phone' => $this->string(20),
             'email' => $this->string(100)->notNull(),
             'address' => $this->text(),
